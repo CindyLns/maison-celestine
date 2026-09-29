@@ -13,7 +13,7 @@
     "logo_height_mobile": 28,
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "inter_n4",
-    "type_subheading_font": "inter_n5",
+    "type_subheading_font": "inter_n4",
     "type_heading_font": "inter_n4",
     "type_accent_font": "inter_n7",
     "type_size_paragraph": "14",
@@ -59,14 +59,15 @@
     "palette_primary_button_text": "{{ settings.color_palette.background }}",
     "palette_primary_button_border": "{{ settings.color_palette.foreground }}",
     "primary_button_border_width": 0,
-    "button_border_radius_primary": 14,
+    "button_border_radius_primary": 0,
     "palette_secondary_button_background": "rgba(0,0,0,0)",
     "palette_secondary_button_text": "{{ settings.color_palette.foreground }}",
     "palette_secondary_button_border": "{{ settings.color_palette.foreground }}",
     "secondary_button_border_width": 1,
-    "button_border_radius_secondary": 14,
+    "button_border_radius_secondary": 0,
+    "pills_border_radius": 0,
     "cart_type": "drawer",
-    "cart_price_font": "subheading",
+    "cart_price_font": "body",
     "show_cart_note": false,
     "show_add_discount_code": true,
     "drawer_background_color": "{{ settings.color_palette.background }}",
@@ -110,7 +111,9 @@
       "color1": "#333333",
       "color2": "#B5A282",
       "color3": "#F9F8F5",
-      "color4": "#DCD5C3"
+      "color4": "#DCD5C3",
+      "color5": "#E2D3BB",
+      "color6": "#E0E0E0"
     }
   },
   "presets": {
