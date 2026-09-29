@@ -2254,10 +2254,11 @@
           "type": "image",
           "name": "t:names.image",
           "settings": {
+            "image": "shopify://shop_images/9859136db17d131b50492fe1db2318b7b1a8868d.png",
             "link": "",
             "image_ratio": "adapt",
-            "width": "fill",
-            "custom_width": 100,
+            "width": "custom",
+            "custom_width": 50,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
