@@ -1466,7 +1466,7 @@
         "section_height": "",
         "section_height_custom": 50,
         "background_media": "none",
-        "background_color": "",
+        "background_color": "{{ settings.color_palette.color3 }}",
         "video_position": "cover",
         "background_image_position": "cover",
         "toggle_overlay": false,
@@ -1497,7 +1497,7 @@
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
-            "background_color": "{{ settings.color_palette.color6 }}",
+            "background_color": "{{ settings.color_palette.color3 }}",
             "toggle_overlay": false,
             "overlay_color": "#00000026",
             "overlay_style": "solid",
@@ -1558,30 +1558,11 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "button_fNxEJ9": {
-              "type": "button",
-              "settings": {
-                "label": "Acheter maintenant",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
             }
           },
           "block_order": [
             "text_NHGgEY",
-            "text_U7fYMN",
-            "button_fNxEJ9"
+            "text_U7fYMN"
           ]
         },
         "slide_KjmfUX": {
@@ -1657,30 +1638,11 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "button_Mgpi6w": {
-              "type": "button",
-              "settings": {
-                "label": "Acheter maintenant",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
             }
           },
           "block_order": [
             "text_V3LELy",
-            "text_dWxDwm",
-            "button_Mgpi6w"
+            "text_dWxDwm"
           ]
         }
       },
