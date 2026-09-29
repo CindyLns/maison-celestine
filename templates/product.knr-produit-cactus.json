@@ -441,7 +441,7 @@
                 "accordion_row_pw9DW9": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Return policy",
+                    "heading": "Bienfaits",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -450,7 +450,7 @@
                     "text_mBpKpA": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn't the case, let us know and we'll do our best to work with you to make it right.</p>",
+                        "text": "{{ closest.product.metafields.custom.bienfaits | metafield_tag }}",
                         "width": "100%",
                         "max_width": "none",
                         "alignment": "left",
@@ -480,7 +480,7 @@
                 "accordion_row_dTpyM7": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Shipping",
+                    "heading": "Ingrédients clés",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -489,7 +489,7 @@
                     "text_nPNeJV": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
+                        "text": "{{ closest.product.metafields.custom.ingredients | metafield_tag }}",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -519,7 +519,7 @@
                 "accordion_row_CRLYVQ": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Manufacturing",
+                    "heading": "Adapté aux peaux",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -528,7 +528,7 @@
                     "text_Tcg93i": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                        "text": "<p>{{ closest.product.metafields.custom.peaux.value }}</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
