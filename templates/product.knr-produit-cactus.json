@@ -242,7 +242,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+                    "text": "{{ closest.product.metafields.custom.description | metafield_tag }}",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -377,32 +377,6 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
-              "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "accordion_nzEt9G": {
               "type": "accordion",
               "name": "t:names.accordion",
@@ -429,7 +403,7 @@
                   "name": "t:names.accordion_row",
                   "settings": {
                     "heading": "Description",
-                    "open_by_default": false,
+                    "open_by_default": true,
                     "icon": "none",
                     "width": 20
                   },
@@ -468,7 +442,7 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Return policy",
-                    "open_by_default": true,
+                    "open_by_default": false,
                     "icon": "none",
                     "width": 20
                   },
@@ -596,7 +570,6 @@
             "variant_picker_R3rGDr",
             "price_fjF3mb",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq",
             "accordion_nzEt9G"
           ]
         }
