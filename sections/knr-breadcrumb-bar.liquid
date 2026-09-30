@@ -2,6 +2,7 @@
   section: section,
   settings: section.settings,
   section_id: section.id,
+  hide_home: section.settings.hide_home,
   hide_current: section.settings.hide_current,
   hide_desktop: section.settings.hide_desktop,
   hide_mobile: section.settings.hide_mobile,
@@ -143,6 +144,12 @@
     },
     {
       "type": "checkbox",
+      "id": "hide_home",
+      "label": "t:knr.breadcrumb-bar.settings.hide_home",
+      "default": false
+    },
+    {
+      "type": "checkbox",
       "id": "hide_current",
       "label": "t:knr.breadcrumb-bar.settings.hide_current",
       "default": false
@@ -227,10 +234,10 @@
       "content": "t:content.appearance"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:settings.color_scheme",
-      "default": "scheme-1"
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "placeholder": "t:settings.default"
     },
     {
       "type": "header",

@@ -1144,6 +1144,7 @@
     "breadcrumb-bar": {
       "name": "Fil d'Ariane",
       "settings": {
+        "hide_home": "Cacher l'accueil",
         "hide_current": "Cacher la page actuelle",
         "hide_desktop": "Cacher sur ordinateur",
         "hide_mobile": "Cacher sur mobile"

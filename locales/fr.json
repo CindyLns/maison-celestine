@@ -52,6 +52,9 @@
       "other": "{{ count }} filtres appliqués",
       "many": "{{ count }} filtres appliqués"
     },
+    "breadcrumb": {
+      "home": "Accueil"
+    },
     "account": "Compte",
     "cart": "Panier",
     "cart_count": "Nombre total d’articles dans le panier",

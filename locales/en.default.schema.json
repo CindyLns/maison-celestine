@@ -1235,5 +1235,17 @@
     "when_will_order_arrive": "When will I get my order?",
     "where_are_products_made": "Where are your products manufactured?",
     "disclosures": "Disclosures"
+  },
+  "knr": {
+    "breadcrumb-bar": {
+      "name": "Breadcrumb bar",
+      "settings": {
+        "hide_home": "Hide home link",
+        "hide_current": "Hide current page",
+        "hide_desktop": "Hide on desktop",
+        "hide_mobile": "Hide on mobile"
+      }
+    }
   }
+  
 }

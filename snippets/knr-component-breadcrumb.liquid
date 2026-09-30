@@ -6,11 +6,11 @@
   - hide_mobile: {Boolean} 
   - page-width: {String} 
   - justify: {String}
-  - breadcrumb_color_scheme: {String}
+  - breadcrumb_background_color: {String}
 
   Usage:
   {% render 'knr-component-breadcrumb'
-    breadcrumb_color_scheme: section.settings.breadcrumb_color_scheme,
+    breadcrumb_background_color: section.settings.background_color,
     page-width: section.settings.page_width, 
     justify: section.settings.title_alignment, 
     hide_current: section.settings.hide_current,
@@ -27,11 +27,11 @@
 {%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
   {%- assign t = template | split: '.' | first -%}
     {% unless block_mode %}
-      <div class="section-background color-{{ breadcrumb_settings.color_scheme }}"></div>
+      <div class="section-background color-{{ breadcrumb_settings.background_color }}"></div>
     {% endunless %}
   <div
       id="breadcrumb-{{ breadcrumb_id }}"
-      class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }}{% endunless %} color-{{ breadcrumb_settings.color_scheme }} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
+      class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }}{% endunless %} color-{{ breadcrumb_settings.background_color }} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
     style="
         {% if breadcrumb_settings.section_height == 'custom' %}
           --section-min-height: {{ breadcrumb_settings.section_height_custom }}svh;
@@ -67,6 +67,7 @@
       aria-label="breadcrumb"
     >
       <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb__list">
+        {% unless hide_home %}
         <li
           itemprop="itemListElement" itemscope
           itemtype="https://schema.org/ListItem"
@@ -82,6 +83,7 @@
           </a>
           <meta itemprop="position" content="1">
         </li>
+        {% endunless %}
         {%- case t -%}
           {%- when 'page' -%}
             {%- if page.metafields.custom.breadcrumb != blank -%}

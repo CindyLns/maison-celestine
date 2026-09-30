@@ -2,6 +2,7 @@
   settings: block.settings,
   section_id: block.id,
   block_mode: true,
+  hide_home: block.settings.hide_home,
   hide_current: block.settings.hide_current,
   hide_desktop: block.settings.hide_desktop,
   hide_mobile: block.settings.hide_mobile
@@ -31,11 +32,17 @@
       "default": false
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:settings.color_scheme",
-      "default": "scheme-1"
-    }
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "placeholder": "t:settings.default"
+    },
   ]
+      "type": "checkbox",
+      "id": "hide_home",
+      "label": "t:knr.breadcrumb-bar.settings.hide_home",
+      "default": false
+    },
+    {
 }
 {% endschema %}
