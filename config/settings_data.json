@@ -10,7 +10,7 @@
 {
   "current": {
     "logo": "shopify://shop_images/Union_c062a7c9-03fb-4513-b60b-212419e1c2bd.svg",
-    "logo_inverse": "shopify://shop_images/Union_blanc.png",
+    "logo_inverse": "shopify://shop_images/logo_blanc.svg",
     "logo_height": 17,
     "logo_height_mobile": 13,
     "page_text_color": "{{ settings.color_palette.foreground }}",
