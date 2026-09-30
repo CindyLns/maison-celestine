@@ -1547,6 +1547,8 @@
           "type": "comparison-slider",
           "name": "t:names.comparison_slider",
           "settings": {
+            "before_image": "{{ closest.product.metafields.custom.image_before.value }}",
+            "after_image": "{{ closest.product.metafields.custom.image_after.value }}",
             "slider_style": "horizontal",
             "show_text": true,
             "before_text": "BEFORE",
