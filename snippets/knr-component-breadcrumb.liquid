@@ -30,10 +30,10 @@
       id="breadcrumb-{{ breadcrumb_id }}"
       class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }} color-{{ breadcrumb_settings.background_color }}{% endunless %} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
     style="
-        {% if block_mode and breadcrumb_settings.text_color != blank %}
+        {% if breadcrumb_settings.text_color != blank %}
           color: {{ breadcrumb_settings.text_color }};
         {% endif %}
-        {% if block_mode and breadcrumb_settings.background %}
+        {% if breadcrumb_settings.background %}
           background-color: {{ breadcrumb_settings.background_color }};
         {% endif %}
         {% if breadcrumb_settings.section_height == 'custom' %}
