@@ -87,6 +87,20 @@
             "padding-inline-end": 40
           },
           "blocks": {
+            "knr_breadcrumb_bar_DMMzPq": {
+              "type": "knr-breadcrumb-bar",
+              "name": "t:knr.breadcrumb-bar.name",
+              "settings": {
+                "hide_home": true,
+                "hide_current": true,
+                "hide_desktop": false,
+                "hide_mobile": false,
+                "text_color": "#B5A282",
+                "background": false,
+                "background_color": "#00000026"
+              },
+              "blocks": {}
+            },
             "group_icgrde": {
               "type": "group",
               "name": "t:names.header",
@@ -748,6 +762,7 @@
             }
           },
           "block_order": [
+            "knr_breadcrumb_bar_DMMzPq",
             "group_icgrde",
             "group_FqxbrY",
             "variant_picker_R3rGDr",
