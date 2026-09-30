@@ -1,0 +1,41 @@
+{% render 'knr-component-breadcrumb',
+  settings: block.settings,
+  section_id: block.id,
+  block_mode: true,
+  hide_current: block.settings.hide_current,
+  hide_desktop: block.settings.hide_desktop,
+  hide_mobile: block.settings.hide_mobile
+%}
+
+{% schema %}
+{
+  "name": "t:knr.breadcrumb-bar.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_current",
+      "label": "t:knr.breadcrumb-bar.settings.hide_current",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:knr.breadcrumb-bar.settings.hide_desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:knr.breadcrumb-bar.settings.hide_mobile",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}

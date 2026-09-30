@@ -1,0 +1,522 @@
+{% comment %}
+  Renders a breadcrumb
+
+  Accepts:
+  
+  - hide_mobile: {Boolean} 
+  - page-width: {String} 
+  - justify: {String}
+  - breadcrumb_color_scheme: {String}
+
+  Usage:
+  {% render 'knr-component-breadcrumb'
+    breadcrumb_color_scheme: section.settings.breadcrumb_color_scheme,
+    page-width: section.settings.page_width, 
+    justify: section.settings.title_alignment, 
+    hide_current: section.settings.hide_current,
+    hide_desktop: section.settings.hide_desktop,
+    hide_tablet: section.settings.hide_tablet,
+    hide_mobile: section.settings.hide_mobile,
+    class: section.settings.breadcrumb_css_class
+  %}
+{% endcomment %}
+
+  {%- assign breadcrumb_settings = settings | default: section.settings -%}
+  {%- assign breadcrumb_id = section_id | default: section.id -%}
+
+{%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+  {%- assign t = template | split: '.' | first -%}
+    {% unless block_mode %}
+      <div class="section-background color-{{ breadcrumb_settings.color_scheme }}"></div>
+    {% endunless %}
+  <div
+      id="breadcrumb-{{ breadcrumb_id }}"
+      class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }}{% endunless %} color-{{ breadcrumb_settings.color_scheme }} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
+    style="
+        {% if breadcrumb_settings.section_height == 'custom' %}
+          --section-min-height: {{ breadcrumb_settings.section_height_custom }}svh;
+        {% elsif breadcrumb_settings.section_height == 'full-screen' %}
+          --section-min-height: 100svh;
+        {% elsif breadcrumb_settings.section_height != '' and breadcrumb_settings.section_height != blank %}
+          --section-min-height: var(--section-height-{{ breadcrumb_settings.section_height }});
+      {% endif %}
+
+        {% if breadcrumb_settings.section_height != '' and breadcrumb_settings.section_height != blank %}
+      --section-preview-height: 600px;
+      {% endif %}
+    "
+  >
+    <nav
+      class="
+        {% unless block_mode %}
+          spacing-style
+          layout-panel-flex
+          layout-panel-flex--{{ breadcrumb_settings.content_direction }}
+          section-content-wrapper
+          {% if breadcrumb_settings.vertical_on_mobile %} mobile-column{% endif %}
+        {% endunless %}
+      "
+      style="
+        {% unless block_mode %}
+          {% render 'layout-panel-style', settings: breadcrumb_settings %}
+          {% render 'spacing-style', settings: breadcrumb_settings %}
+        {% endunless %}
+      "
+      data-testid="section-content"
+      role="navigation"
+      aria-label="breadcrumb"
+    >
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb__list">
+        <li
+          itemprop="itemListElement" itemscope
+          itemtype="https://schema.org/ListItem"
+          class="breadcrumb__item"
+        >
+          <a
+            itemscope itemtype="https://schema.org/WebPage"
+            itemprop="item" itemid="{{ routes.root_url }}"
+            href="{{ routes.root_url }}"
+            class="breadcrumb__link"
+            title="{{ 'accessibility.breadcrumb.home' | t }}">
+            <span itemprop="name">{{ 'accessibility.breadcrumb.home' | t }}</span>
+          </a>
+          <meta itemprop="position" content="1">
+        </li>
+        {%- case t -%}
+          {%- when 'page' -%}
+            {%- if page.metafields.custom.breadcrumb != blank -%}
+              {% for parent_page in page.metafields.custom.breadcrumb.value %}
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+                <li 
+                  itemprop="itemListElement" itemscope
+                  itemtype="https://schema.org/ListItem"
+                  class="breadcrumb__item"
+                  >
+                  <a
+                    itemscope itemtype="https://schema.org/WebPage"
+                    itemprop="item" itemid="{{ parent_page.url }}"
+                    href="{{ parent_page.url }}"
+                    class="breadcrumb__link"
+                    title="{{ parent_page.title }}">
+                    <span itemprop="name">{{ parent_page.title }}</span>
+                  </a>
+                  <meta itemprop="position" content="{{ forloop.index | plus: 1 }}">
+                </li>
+              {% endfor %}
+            {%- endif -%}
+            {% unless hide_current %}
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item breadcrumb__item_last"
+              >
+                <span
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ page.url }}"
+                  class="breadcrumb__link" aria-current="page"
+                  title="{{ page.title }}">
+                  <span itemprop="name">{{ page.title }}</span>
+                </span>
+                <meta itemprop="position" content="2">
+              </li>
+            {% endunless %}
+          {%- when 'product' -%}
+            <span class="svg-wrapper icon-caret">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+            {%- if collection.url -%}
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item"
+              >
+                <a
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ collection.url }}"
+                  href="{{ collection.url }}"
+                  class="breadcrumb__link"
+                  title="{{ collection.title }}">
+                  <span itemprop="name">{{ collection.title }}</span>
+                </a>
+                <meta itemprop="position" content="2">
+              </li>
+            {%- elsif product.collections.size > 0 -%}
+              {%- if product.metafields.custom.breadcrumb != blank -%}
+                {% for collection in product.metafields.custom.breadcrumb.value %}
+                  <li 
+                    itemprop="itemListElement" itemscope
+                    itemtype="https://schema.org/ListItem"
+                    class="breadcrumb__item"
+                    >
+                    <a
+                      itemscope itemtype="https://schema.org/WebPage"
+                      itemprop="item" itemid="{{ collection.url }}"
+                      href="{{ collection.url }}"
+                      class="breadcrumb__link"
+                      title="{{ collection.title }}">
+                      <span itemprop="name">{{ collection.title }}</span>
+                    </a>
+                    <meta itemprop="position" content="{{ forloop.index | plus: 1 }}">
+                  </li>
+                  {% unless forloop.last and hide_current %}
+                  <span class="svg-wrapper icon-caret">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                  {% endunless %}
+                {% endfor %}
+              {%- else -%}
+                <li
+                  itemprop="itemListElement" itemscope
+                  itemtype="https://schema.org/ListItem"
+                  class="breadcrumb__item"
+                >
+                  <a
+                    itemscope itemtype="https://schema.org/WebPage"
+                    itemprop="item" itemid="{{ product.collections.first.url }}"
+                    href="{{ product.collections.first.url }}"
+                    class="breadcrumb__link"
+                    title="{{ product.collections.first.title }}">
+                    <span itemprop="name">
+                      {{- product.collections.first.title -}}
+                    </span>
+                  </a>
+                  <meta itemprop="position" content="2">
+                </li>
+                {% unless hide_current %}
+                  <span class="svg-wrapper icon-caret">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                {% endunless %}
+              {%- endif -%}
+            {%- endif -%}
+            {%- if product.collections.size > 0 and product.metafields.custom.breadcrumb != blank -%}
+              {% for collection in product.metafields.custom.breadcrumb.value %}
+                {% assign position = forloop.length | plus: 2 %}
+              {% endfor %}
+              {% unless hide_current %}
+                <li
+                  itemprop="itemListElement" itemscope
+                  itemtype="https://schema.org/ListItem"
+                  class="breadcrumb__item breadcrumb__item_last"
+                >
+                  <span
+                    itemscope itemtype="https://schema.org/WebPage"
+                    itemprop="item" itemid="{{ product.url }}"
+                    class="breadcrumb__link" aria-current="page">
+                    <span itemprop="name">{{ product.title }}</span>
+                  </span>
+                  <meta itemprop="position" content="{{ position }}">
+                </li>
+              {% endunless %}
+            {%- else -%}
+              {% unless hide_current %}
+                <li
+                    itemprop="itemListElement" itemscope
+                    itemtype="https://schema.org/ListItem"
+                    class="breadcrumb__item breadcrumb__item_last"
+                  >
+                  <span
+                    itemscope itemtype="https://schema.org/WebPage"
+                    itemprop="item" itemid="{{ product.url }}"
+                    class="breadcrumb__link" aria-current="page">
+                    <span itemprop="name">{{ product.title }}</span>
+                  </span>
+                  <meta itemprop="position" content="3">
+                </li>
+              {% endunless %}
+            {%- endif -%}
+          {%- when 'collection' -%}
+            {%- if current_tags -%}
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item 1_current_tags"
+              >
+                <a 
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{  collection.url }}"
+                  href="{{ collection.url }}"
+                  class="breadcrumb__link" 
+                  title="{{ collection.title }}">
+                  <span itemprop="name">{{ collection.title }}</span>
+                </a>
+                <meta itemprop="position" content="2">
+              </li>
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item 2_current_tags"
+              >
+                {%- capture tag_url -%}{{ collection.url }}/{{ current_tags | join: "+" }}{%- endcapture -%}
+                <a 
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ tag_url }}"
+                  href="{{ tag_url }}"
+                  class="breadcrumb__link" aria-current="page">
+                  <span itemprop="name">{{ current_tags | join: ' + ' }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+              </li>
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+            {%- elsif collection.metafields.custom.breadcrumb != blank -%}
+              {% for collection in collection.metafields.custom.breadcrumb.value %}
+                {% assign position = forloop.length | plus: 2 %}
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+                <li 
+                  itemprop="itemListElement" itemscope
+                  itemtype="https://schema.org/ListItem"
+                  class="breadcrumb__item {{ forloop.index }}_current_meta_collection"
+                >
+                  <a
+                    itemscope itemtype="https://schema.org/WebPage"
+                    itemprop="item" itemid="{{ collection.url }}"
+                    href="{{ collection.url }}"
+                    class="breadcrumb__link"
+                    title="{{ collection.title }}">
+                    <span itemprop="name">{{ collection.title }}</span>
+                  </a>
+                  <meta itemprop="position" content="{{ forloop.index | plus: 1 }}">
+                </li>
+              {% endfor %}
+                <span class="svg-wrapper icon-caret">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+                <li
+                  itemprop="itemListElement" itemscope
+                  itemtype="https://schema.org/ListItem"
+                  class="breadcrumb__item last_current_collection"
+                >
+                  <span
+                    itemscope itemtype="https://schema.org/WebPage"
+                    itemprop="item" itemid="{{ collection.url }}"
+                    class="breadcrumb__link" aria-current="page"
+                    title="{{ collection.title }}"
+                  >
+                    <span itemprop="name">{{ collection.title }}</span>
+                  </span>
+                  <meta itemprop="position" content="{{ position }}">
+                </li>
+            {%- else -%}
+              <span class="svg-wrapper icon-caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item last_of_collection"
+              >
+                <span
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ collection.url }}"
+                  class="breadcrumb__link" aria-current="page"
+                  title="{{ collection.title }}"
+                >
+                  <span itemprop="name">{{ collection.title }}</span>
+                </span>
+                <meta itemprop="position" content="2">
+              </li>
+            {%- endif -%}
+          {%- when 'blog' -%}
+            {%- if current_tags -%}
+              <span class="svg-wrapper icon-caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item"
+              >
+                <a 
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ blog.url }}"
+                  href="{{ blog.url }}"
+                  class="breadcrumb__link" 
+                  title="{{ blog.title }}">
+                  <span itemprop="name">{{ blog.title }}</span>
+                </a>
+                <meta itemprop="position" content="2">
+              </li>
+              <span class="svg-wrapper icon-caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item"
+              >
+                {%- capture tag_url -%}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{%- endcapture -%}
+                <a 
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ tag_url }}"
+                  href="{{ tag_url }}"
+                  class="breadcrumb__link" aria-current="page">
+                  <span itemprop="name">{{ current_tags | join: ' + ' }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+              </li>
+            {%- else -%}
+              <span class="svg-wrapper icon-caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item"
+              >
+                <a 
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ blog.url }}"
+                  href="{{ blog.url }}"
+                  class="breadcrumb__link" aria-current="page">
+                  <span itemprop="name">{{ blog.title }}</span>
+                </a>
+                <meta itemprop="position" content="2">
+              </li>
+            {%- endif -%}
+          {%- when 'article' -%}
+            <span class="svg-wrapper icon-caret">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+            <li
+              itemprop="itemListElement" itemscope
+              itemtype="https://schema.org/ListItem"
+              class="breadcrumb__item"
+            >
+              <a
+                itemscope itemtype="https://schema.org/WebPage"
+                itemprop="item" itemid="{{ blog.url }}"
+                href="{{ blog.url }}"
+                class="breadcrumb__link" title="{{ blog.title }}">
+                <span itemprop="name">{{ blog.title }}</span>
+              </a>
+              <meta itemprop="position" content="2">
+            </li>
+            {% unless hide_current %}
+              <span class="svg-wrapper icon-caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item breadcrumb__item_last"
+              >
+                <span
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ article.url }}"
+                  class="breadcrumb__link" aria-current="page">
+                  <span itemprop="name">{{ article.title }}</span>
+                </span>
+                <meta itemprop="position" content="3">
+              </li>
+            {% endunless %}
+          {%- else -%}
+            {% unless hide_current %}
+              <span class="svg-wrapper icon-caret">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+              <li
+                itemprop="itemListElement" itemscope
+                itemtype="https://schema.org/ListItem"
+                class="breadcrumb__item breadcrumb__item_last"
+              >
+                <span
+                  itemscope itemtype="https://schema.org/WebPage"
+                  itemprop="item" itemid="{{ request.path }}"
+                  class="breadcrumb__link" aria-current="page">
+                  <span itemprop="name">{{ page_title }}</span>
+                </span>
+                <meta itemprop="position" content="2">
+              </li>
+            {% endunless %}
+        {%- endcase -%}
+      </ol>
+    </nav>
+  </div>
+{%- endunless -%}
+
+{%- style -%}
+  .breadcrumb {
+    z-index: 2;
+    position: relative;
+  }
+  
+  #breadcrumb-{{ breadcrumb_id }} nav {
+    display: flex;
+    font-size: 0.625rem;
+  }
+
+  .breadcrumb__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: wrap;
+    overflow: scroll;
+    gap: .25rem;
+    -ms-overflow-style: none;  /* Cache la barre de défilement pour IE et Edge */
+    scrollbar-width: none;  /* Cache la barre de défilement pour Firefox */
+  }
+  
+  .breadcrumb__list::-webkit-scrollbar {
+      display: none;  /* Cache la barre de défilement pour Chrome, Safari, et Edge */
+  }
+
+  .breadcrumb__item {
+    display: inline-block;
+  }
+
+  .breadcrumb .icon-caret {
+    width: .5rem;
+    height: .5rem;
+    position: relative;
+    transform: rotate(-90deg);
+    vertical-align: baseline;
+    min-width: .5rem;
+  }
+
+  .breadcrumb__link {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .breadcrumb__link[aria-current="page"] {
+    color: inherit;
+    font-weight: normal;
+    text-decoration: none;
+  }
+
+  .breadcrumb__link[aria-current="page"]:hover,
+  .breadcrumb__link[aria-current="page"]:focus {
+    text-decoration: none;
+  }
+
+  @media screen and (min-width: 750px) {
+     .breadcrumb__list {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .breadcrumb__item.breadcrumb__item_last {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+{%- endstyle -%}
