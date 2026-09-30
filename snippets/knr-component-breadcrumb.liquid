@@ -69,7 +69,7 @@
       role="navigation"
       aria-label="breadcrumb"
     >
-      <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb__list">
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb__list{% if hide_home %} breadcrumb__list--hide-home{% endif %}">
         {% unless hide_home %}
         <li
           itemprop="itemListElement" itemscope
