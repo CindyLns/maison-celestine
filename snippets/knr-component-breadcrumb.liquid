@@ -6,11 +6,8 @@
   - hide_mobile: {Boolean} 
   - page-width: {String} 
   - justify: {String}
-  - breadcrumb_background_color: {String}
-
   Usage:
   {% render 'knr-component-breadcrumb'
-    breadcrumb_background_color: section.settings.background_color,
     page-width: section.settings.page_width, 
     justify: section.settings.title_alignment, 
     hide_current: section.settings.hide_current,
@@ -31,8 +28,14 @@
     {% endunless %}
   <div
       id="breadcrumb-{{ breadcrumb_id }}"
-      class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }}{% endunless %} color-{{ breadcrumb_settings.background_color }} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
+      class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }} color-{{ breadcrumb_settings.background_color }}{% endunless %} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
     style="
+        {% if block_mode and breadcrumb_settings.text_color != blank %}
+          color: {{ breadcrumb_settings.text_color }};
+        {% endif %}
+        {% if block_mode and breadcrumb_settings.background %}
+          background-color: {{ breadcrumb_settings.background_color }};
+        {% endif %}
         {% if breadcrumb_settings.section_height == 'custom' %}
           --section-min-height: {{ breadcrumb_settings.section_height_custom }}svh;
         {% elsif breadcrumb_settings.section_height == 'full-screen' %}
@@ -474,6 +477,10 @@
     gap: .25rem;
     -ms-overflow-style: none;  /* Cache la barre de défilement pour IE et Edge */
     scrollbar-width: none;  /* Cache la barre de défilement pour Firefox */
+  }
+
+  .breadcrumb__list--hide-home > .icon-caret:first-child {
+    display: none;
   }
   
   .breadcrumb__list::-webkit-scrollbar {

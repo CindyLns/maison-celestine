@@ -14,6 +14,16 @@
   "tag": null,
   "settings": [
     {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_home",
+      "label": "t:knr.breadcrumb-bar.settings.hide_home",
+      "default": false
+    },
+    {
       "type": "checkbox",
       "id": "hide_current",
       "label": "t:knr.breadcrumb-bar.settings.hide_current",
@@ -32,17 +42,29 @@
       "default": false
     },
     {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
       "type": "color",
-      "id": "background_color",
-      "label": "t:settings.background_color",
+      "id": "text_color",
+      "label": "t:settings.text_color",
       "placeholder": "t:settings.default"
     },
-  ]
+    {
       "type": "checkbox",
-      "id": "hide_home",
-      "label": "t:knr.breadcrumb-bar.settings.hide_home",
+      "id": "background",
+      "label": "t:settings.background",
       "default": false
     },
     {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "alpha": true,
+      "default": "#00000026",
+      "visible_if": "{{ block.settings.background }}"
+    }
+  ]
 }
 {% endschema %}
