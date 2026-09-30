@@ -62,9 +62,7 @@
           {%- when 'page' -%}
             {%- if page.metafields.custom.breadcrumb != blank -%}
               {% for parent_page in page.metafields.custom.breadcrumb.value %}
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
                 <li 
                   itemprop="itemListElement" itemscope
                   itemtype="https://schema.org/ListItem"
@@ -83,9 +81,7 @@
               {% endfor %}
             {%- endif -%}
             {% unless block.settings.hide_current %}
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -102,9 +98,7 @@
               </li>
             {% endunless %}
           {%- when 'product' -%}
-            <span class="svg-wrapper icon-caret">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+            <span class="svg-wrapper icon-caret">/</span>
             {%- if collection.url -%}
               <li
                 itemprop="itemListElement" itemscope
@@ -140,9 +134,7 @@
                     <meta itemprop="position" content="{{ forloop.index | plus: 1 }}">
                   </li>
                   {% unless forloop.last and block.settings.hide_current %}
-                  <span class="svg-wrapper icon-caret">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
+                  <span class="svg-wrapper icon-caret">/</span>
                   {% endunless %}
                 {% endfor %}
               {%- else -%}
@@ -164,9 +156,7 @@
                   <meta itemprop="position" content="2">
                 </li>
                 {% unless block.settings.hide_current %}
-                  <span class="svg-wrapper icon-caret">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
+                  <span class="svg-wrapper icon-caret">/</span>
                 {% endunless %}
               {%- endif -%}
             {%- endif -%}
@@ -208,9 +198,7 @@
             {%- endif -%}
           {%- when 'collection' -%}
             {%- if current_tags -%}
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -226,9 +214,7 @@
                 </a>
                 <meta itemprop="position" content="2">
               </li>
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -244,15 +230,11 @@
                 </a>
                 <meta itemprop="position" content="3">
               </li>
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
             {%- elsif collection.metafields.custom.breadcrumb != blank -%}
               {% for collection in collection.metafields.custom.breadcrumb.value %}
                 {% assign position = forloop.length | plus: 2 %}
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
                 <li 
                   itemprop="itemListElement" itemscope
                   itemtype="https://schema.org/ListItem"
@@ -269,9 +251,7 @@
                   <meta itemprop="position" content="{{ forloop.index | plus: 1 }}">
                 </li>
               {% endfor %}
-                <span class="svg-wrapper icon-caret">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
+                <span class="svg-wrapper icon-caret">/</span>
                 <li
                   itemprop="itemListElement" itemscope
                   itemtype="https://schema.org/ListItem"
@@ -288,9 +268,7 @@
                   <meta itemprop="position" content="{{ position }}">
                 </li>
             {%- else -%}
-              <span class="svg-wrapper icon-caret">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -309,9 +287,7 @@
             {%- endif -%}
           {%- when 'blog' -%}
             {%- if current_tags -%}
-              <span class="svg-wrapper icon-caret">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -327,9 +303,7 @@
                 </a>
                 <meta itemprop="position" content="2">
               </li>
-              <span class="svg-wrapper icon-caret">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -346,9 +320,7 @@
                 <meta itemprop="position" content="3">
               </li>
             {%- else -%}
-              <span class="svg-wrapper icon-caret">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -365,9 +337,7 @@
               </li>
             {%- endif -%}
           {%- when 'article' -%}
-            <span class="svg-wrapper icon-caret">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+            <span class="svg-wrapper icon-caret">/</span>
             <li
               itemprop="itemListElement" itemscope
               itemtype="https://schema.org/ListItem"
@@ -383,9 +353,7 @@
               <meta itemprop="position" content="2">
             </li>
             {% unless block.settings.hide_current %}
-              <span class="svg-wrapper icon-caret">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -402,9 +370,7 @@
             {% endunless %}
           {%- else -%}
             {% unless block.settings.hide_current %}
-              <span class="svg-wrapper icon-caret">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span class="svg-wrapper icon-caret">/</span>
               <li
                 itemprop="itemListElement" itemscope
                 itemtype="https://schema.org/ListItem"
@@ -473,13 +439,11 @@
 
   .breadcrumb__link {
     color: inherit;
-    font-weight: bold;
     text-decoration: none;
   }
 
   .breadcrumb__link[aria-current="page"] {
     color: inherit;
-    font-weight: normal;
     text-decoration: none;
   }
 
