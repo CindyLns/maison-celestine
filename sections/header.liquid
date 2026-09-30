@@ -550,6 +550,10 @@
 
     z-index: var(--layer-overlay);
 
+    &:not([data-sticky-state='active']) .header__row--top {
+      background-color: transparent;
+    }
+
     &[transparent='not-sticky'][data-sticky-state='active'],
     &:has(.menu-list__list-item > .menu-list__link:not([aria-haspopup]):hover) {
       --header-logo-display: unset;
