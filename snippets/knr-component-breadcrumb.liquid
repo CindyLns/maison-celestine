@@ -1,34 +1,17 @@
 {% comment %}
   Renders a breadcrumb
 
-  Accepts:
-  
-  - hide_mobile: {Boolean} 
-  - page-width: {String} 
-  - justify: {String}
-  Usage:
-  {% render 'knr-component-breadcrumb'
-    page-width: section.settings.page_width, 
-    justify: section.settings.title_alignment, 
-    hide_current: section.settings.hide_current,
-    hide_desktop: section.settings.hide_desktop,
-    hide_tablet: section.settings.hide_tablet,
-    hide_mobile: section.settings.hide_mobile,
-    class: section.settings.breadcrumb_css_class
-  %}
+  Renders the breadcrumb block using block.settings.
 {% endcomment %}
 
-  {%- assign breadcrumb_settings = settings | default: section.settings -%}
-  {%- assign breadcrumb_id = section_id | default: section.id -%}
+  {%- assign breadcrumb_settings = block.settings -%}
+  {%- assign breadcrumb_id = block.id -%}
 
 {%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
   {%- assign t = template | split: '.' | first -%}
-    {% unless block_mode %}
-      <div class="section-background color-{{ breadcrumb_settings.background_color }}"></div>
-    {% endunless %}
   <div
       id="breadcrumb-{{ breadcrumb_id }}"
-      class="breadcrumb{% unless block_mode %} section section--{{ breadcrumb_settings.section_width }} color-{{ breadcrumb_settings.background_color }}{% endunless %} {% if hide_desktop %} hidden--desktop{% endif %}{% if hide_mobile %} hidden--mobile{% endif %}"
+      class="breadcrumb color-{{ breadcrumb_settings.background_color }} {% if block.settings.hide_desktop %} hidden--desktop{% endif %}{% if block.settings.hide_mobile %} hidden--mobile{% endif %}"
     style="
         {% if breadcrumb_settings.text_color != blank %}
           color: {{ breadcrumb_settings.text_color }};
@@ -51,26 +34,14 @@
   >
     <nav
       class="
-        {% unless block_mode %}
-          spacing-style
           layout-panel-flex
-          layout-panel-flex--{{ breadcrumb_settings.content_direction }}
-          section-content-wrapper
-          {% if breadcrumb_settings.vertical_on_mobile %} mobile-column{% endif %}
-        {% endunless %}
       "
-      style="
-        {% unless block_mode %}
-          {% render 'layout-panel-style', settings: breadcrumb_settings %}
-          {% render 'spacing-style', settings: breadcrumb_settings %}
-        {% endunless %}
-      "
-      data-testid="section-content"
+      data-testid="block-content"
       role="navigation"
       aria-label="breadcrumb"
     >
-      <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb__list{% if hide_home %} breadcrumb__list--hide-home{% endif %}">
-        {% unless hide_home %}
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb__list{% if block.settings.hide_home %} breadcrumb__list--hide-home{% endif %}">
+        {% unless block.settings.hide_home %}
         <li
           itemprop="itemListElement" itemscope
           itemtype="https://schema.org/ListItem"
@@ -111,7 +82,7 @@
                 </li>
               {% endfor %}
             {%- endif -%}
-            {% unless hide_current %}
+            {% unless block.settings.hide_current %}
                 <span class="svg-wrapper icon-caret">
                   {{- 'icon-caret.svg' | inline_asset_content -}}
                 </span>
@@ -168,7 +139,7 @@
                     </a>
                     <meta itemprop="position" content="{{ forloop.index | plus: 1 }}">
                   </li>
-                  {% unless forloop.last and hide_current %}
+                  {% unless forloop.last and block.settings.hide_current %}
                   <span class="svg-wrapper icon-caret">
                     {{- 'icon-caret.svg' | inline_asset_content -}}
                   </span>
@@ -192,7 +163,7 @@
                   </a>
                   <meta itemprop="position" content="2">
                 </li>
-                {% unless hide_current %}
+                {% unless block.settings.hide_current %}
                   <span class="svg-wrapper icon-caret">
                     {{- 'icon-caret.svg' | inline_asset_content -}}
                   </span>
@@ -203,7 +174,7 @@
               {% for collection in product.metafields.custom.breadcrumb.value %}
                 {% assign position = forloop.length | plus: 2 %}
               {% endfor %}
-              {% unless hide_current %}
+              {% unless block.settings.hide_current %}
                 <li
                   itemprop="itemListElement" itemscope
                   itemtype="https://schema.org/ListItem"
@@ -219,7 +190,7 @@
                 </li>
               {% endunless %}
             {%- else -%}
-              {% unless hide_current %}
+              {% unless block.settings.hide_current %}
                 <li
                     itemprop="itemListElement" itemscope
                     itemtype="https://schema.org/ListItem"
@@ -411,7 +382,7 @@
               </a>
               <meta itemprop="position" content="2">
             </li>
-            {% unless hide_current %}
+            {% unless block.settings.hide_current %}
               <span class="svg-wrapper icon-caret">
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </span>
@@ -430,7 +401,7 @@
               </li>
             {% endunless %}
           {%- else -%}
-            {% unless hide_current %}
+            {% unless block.settings.hide_current %}
               <span class="svg-wrapper icon-caret">
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </span>
