@@ -1256,6 +1256,11 @@
       "name": "knr-group",
       "settings": {
       }
+    },
+    "multicolumn-slide": {
+      "name": "Multicolumn: carousel",
+      "settings": {
+      }
     }
   }
   
