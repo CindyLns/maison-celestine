@@ -1,4 +1,11 @@
+{%- assign metafield_parts = block.settings.metafield_key | split: '.' -%}
+{%- assign namespace = metafield_parts[0] -%}
+{%- assign key = metafield_parts[1] -%}
+{%- assign annonces = product.metafields[namespace][key].value -%}
 {%- assign slide_count = block.blocks.size | default: 0 -%}
+{%- if annonces != blank -%}
+  {%- assign slide_count = annonces.size -%}
+{%- endif -%}
 
 {% if slide_count > 1 %}
   {% capture controls %}
@@ -16,7 +23,26 @@
 {% endif %}
 
 {% capture slides %}
-  {% content_for 'blocks' %}
+  {% if annonces != blank %}
+    {% for annonce in annonces %}
+      {% capture slide_content %}
+        <div class="slide__content">
+          {% if annonce.texte != blank %}
+            {{ annonce.texte | metafield_tag }}
+          {% endif %}
+        </div>
+      {% endcapture %}
+
+      {% render 'slideshow-slide',
+        index: forloop.index0,
+        children: slide_content,
+        slide_size: section.settings.slide_height,
+        navigate_to_slide: true
+      %}
+    {% endfor %}
+  {% else %}
+    {% content_for 'blocks' %}
+  {% endif %}
 {% endcapture %}
 
 {% liquid
@@ -59,6 +85,12 @@
     }
   ],
   "settings": [
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "t:knr.metafield_key",
+      "default": "custom.annonces"
+    },
     {
       "type": "color",
       "id": "background_color",
