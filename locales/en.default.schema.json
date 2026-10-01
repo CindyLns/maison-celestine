@@ -1251,6 +1251,11 @@
         "hide_desktop": "Hide on desktop",
         "hide_mobile": "Hide on mobile"
       }
+    },
+    "group": {
+      "name": "knr-group",
+      "settings": {
+      }
     }
   }
   

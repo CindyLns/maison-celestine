@@ -1155,6 +1155,11 @@
         "hide_desktop": "Cacher sur ordinateur",
         "hide_mobile": "Cacher sur mobile"
       }
+    },
+    "group": {
+      "name": "knr-groupe",
+      "settings": {
+      }
     }
   }
 }
