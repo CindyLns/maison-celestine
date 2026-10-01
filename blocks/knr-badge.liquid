@@ -92,7 +92,6 @@
     {% if has_badge != blank %}
         --badge-border-color: {{ bad.couleur_bordure }};
         --badge-color-text: {{ bad.couleur_texte }};
-        --gap: {{ block_settings.gap}}px;
     {% endif %}
   "
 
@@ -175,13 +174,15 @@
     border-color: var(--badge-border-color);
     border: solid 0.5px;
     padding: 6px 4px 4px 4px;
-    margin-right: 5px;
-    border-radius: var(--text-corner-radius); 
+    border-radius: var(--text-corner-radius);
+
+    @media screen and (max-width: 749px) {
+      border: 0px;
+    }
   }
   .badge-block span {
     color: var(--badge-color-text) !important;
   }
-
 {% endstylesheet %}
 
 {% schema %}
