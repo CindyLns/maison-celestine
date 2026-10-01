@@ -26,7 +26,7 @@
   {% if annonces != blank %}
     {% for annonce in annonces %}
       {% capture slide_content %}
-        <div class="slide__content">
+        <div class="slide__content annonce_slide__content">
           {% if annonce.texte != blank %}
             {{ annonce.texte | metafield_tag }}
           {% endif %}
