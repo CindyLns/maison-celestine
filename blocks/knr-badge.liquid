@@ -65,69 +65,71 @@
   endif
 %}
 
-{%- for bad in badge -%}
-  {% capture attributes %}
-  class="{{ class }} spacing-style text-block text-block--{{ block.id }} {{ block_settings.type_preset }}
-    {{ text_block_classes }} badge-block 
-  "
+<div class="badges-container">
+  {%- for bad in badge -%}
+    {% capture attributes %}
+    class="{{ class }} spacing-style text-block text-block--{{ block.id }} {{ block_settings.type_preset }}
+      {{ text_block_classes }} badge-block 
+    "
 
-  style="
-    {% render 'spacing-padding', settings: block_settings %}
-    {% render 'typography-style', settings: block_settings %}
-    {% if block_settings.text_color != blank %}
-      --color: {{ block_settings.text_color }};
-      --color-rgb: {{ block_settings.text_color.rgb }};
-    {% endif %}
-
-    --width: {{ text_width }};
-    --max-width: var(--max-width--{{ type }}-{{ block_settings.max_width }});
-    {% if text_width == "100%" %}
-      --text-align: {{ block_settings.alignment | replace: 'left', 'start' | replace: 'right', 'end' }};
-    {% endif %}
-    {% if block_settings.background %}
-      --text-background-color: {{ block_settings.background_color | default: 'rgb(255 255 255 / 1.0)' }};
-      --text-corner-radius: {{ block_settings.corner_radius }}px;
-      --text-padding: max(var(--padding-2xs), calc((var(--text-corner-radius) + var(--padding-xs)) * (1 - cos(45deg))));
-    {% endif %}
-    {% if has_badge != blank %}
-        --badge-border-color: {{ bad.couleur_bordure }};
-        --badge-color-text: {{ bad.couleur_texte }};
-    {% endif %}
-  "
-
-  {{ block.shopify_attributes }}
-{% endcapture %}
-
-  {% liquid
-    # {{ attributes }} must be on the immediate HTML parent of the text to preserve
-    # the click-to-edit connection in the theme editor. Any break between the text,
-    # including if-statements, will break the connection.
-
-    assign element = 'div'
-    if is_rte
-      assign element = 'rte-formatter'
-    endif
-  %}
-
-  {% capture condition %}
-{% if has_badge %}data-badge="true"{% endif %}
-{% endcapture %}
-
-  {% if fallback_text != blank and visible_text == blank %}
-    <div
-      {% if has_badge %}
-        data-badge="true"
+    style="
+      {% render 'spacing-padding', settings: block_settings %}
+      {% render 'typography-style', settings: block_settings %}
+      {% if block_settings.text_color != blank %}
+        --color: {{ block_settings.text_color }};
+        --color-rgb: {{ block_settings.text_color.rgb }};
       {% endif %}
-      {{ attributes | strip_newlines | strip }}
-    >
-      {{ bad.texte | metafield_tag }}
-    </div>
-  {% elsif plain_text != blank %}
-    <{{ element }} {{ attributes | strip_newlines | strip }} {{ condition }}>
-      {{ bad.texte | metafield_tag }}
-    </{{ element }}>
-  {% endif %}
-{%- endfor -%}
+
+      --width: {{ text_width }};
+      --max-width: var(--max-width--{{ type }}-{{ block_settings.max_width }});
+      {% if text_width == "100%" %}
+        --text-align: {{ block_settings.alignment | replace: 'left', 'start' | replace: 'right', 'end' }};
+      {% endif %}
+      {% if block_settings.background %}
+        --text-background-color: {{ block_settings.background_color | default: 'rgb(255 255 255 / 1.0)' }};
+        --text-corner-radius: {{ block_settings.corner_radius }}px;
+        --text-padding: max(var(--padding-2xs), calc((var(--text-corner-radius) + var(--padding-xs)) * (1 - cos(45deg))));
+      {% endif %}
+      {% if has_badge != blank %}
+          --badge-border-color: {{ bad.couleur_bordure }};
+          --badge-color-text: {{ bad.couleur_texte }};
+      {% endif %}
+    "
+
+    {{ block.shopify_attributes }}
+  {% endcapture %}
+
+    {% liquid
+      # {{ attributes }} must be on the immediate HTML parent of the text to preserve
+      # the click-to-edit connection in the theme editor. Any break between the text,
+      # including if-statements, will break the connection.
+
+      assign element = 'div'
+      if is_rte
+        assign element = 'rte-formatter'
+      endif
+    %}
+
+    {% capture condition %}
+  {% if has_badge %}data-badge="true"{% endif %}
+  {% endcapture %}
+
+    {% if fallback_text != blank and visible_text == blank %}
+      <div
+        {% if has_badge %}
+          data-badge="true"
+        {% endif %}
+        {{ attributes | strip_newlines | strip }}
+      >
+        {{ bad.texte | metafield_tag }}
+      </div>
+    {% elsif plain_text != blank %}
+      <{{ element }} {{ attributes | strip_newlines | strip }} {{ condition }}>
+        {{ bad.texte | metafield_tag }}
+      </{{ element }}>
+    {% endif %}
+  {%- endfor -%}
+</div>
 
 {% stylesheet %}
   :root {
@@ -170,6 +172,10 @@
     text-wrap: var(--text-wrap);
   }
 
+  .badges-container {
+    display: flex;
+    gap: 4px;
+  }
   .badge-block {
     border-color: var(--badge-border-color);
     border: solid 0.5px;
