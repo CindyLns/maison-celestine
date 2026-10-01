@@ -95,9 +95,36 @@
                 "hide_current": true,
                 "hide_desktop": false,
                 "hide_mobile": false,
-                "text_color": "#B5A282",
+                "text_color": "#b5a282",
                 "background": false,
                 "background_color": "#00000026"
+              },
+              "blocks": {}
+            },
+            "knr_badge_tMkQe9": {
+              "type": "knr-badge",
+              "name": "t:knr.badge.name",
+              "settings": {
+                "metafield_key": "custom.badge",
+                "text": "<p>Nous fabriquons des articles plus performants et plus durables. Nos produits résolvent de vrais problèmes avec un design épuré et des matériaux honnêtes.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.75rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "uppercase",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -763,6 +790,7 @@
           },
           "block_order": [
             "knr_breadcrumb_bar_DMMzPq",
+            "knr_badge_tMkQe9",
             "group_icgrde",
             "group_FqxbrY",
             "variant_picker_R3rGDr",
