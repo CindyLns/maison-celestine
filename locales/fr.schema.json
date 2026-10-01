@@ -1141,6 +1141,7 @@
     "blog_post": "Article de blog"
   },
   "knr": {
+    "metafield_key": "Connexes par Metafield",
     "badge": {
       "name": "Badge",
       "settings": {

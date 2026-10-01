@@ -171,13 +171,12 @@
     text-wrap: var(--text-wrap);
   }
 
-  [data-badge='true'] .metafield-rich_text span {
-    border-color: var(badge-border-color);
-    color: var(--badge-color-text) !important;
-  }
   .badge-block {
     border-color: var(--badge-border-color);
+    border: solid 0.5px;
+    padding: 6px 4px 4px 4px;
     margin-right: 5px;
+    border-radius: var(--text-corner-radius); 
   }
   .badge-block span {
     color: var(--badge-color-text) !important;
@@ -193,7 +192,7 @@
     {
       "type": "text",
       "id": "metafield_key",
-      "label": "t:lds.metafield_key",
+      "label": "t:knr.metafield_key",
       "default": "custom.badge"
     },
     {
