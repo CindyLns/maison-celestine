@@ -34,7 +34,7 @@
 <div class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"></div>
 
 <div
-  class="spacing-style block--{{ block.settings.section_width }}{% if block.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}disable-section-top-offset"
+  class="spacing-style {% if block.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}disable-section-top-offset"
   style="{% render 'spacing-padding', settings: block.settings %}"
 >
   <h2 class="visually-hidden">{{ 'accessibility.slideshow' | t }}</h2>
@@ -47,7 +47,6 @@
     autoplay_speed: block.settings.autoplay_speed,
     slides: slides,
     slide_count: slide_count,
-    slide_size: block.settings.slide_height
   %}
 </div>
 
@@ -61,162 +60,105 @@
   ],
   "settings": [
     {
-      "type": "select",
-      "id": "section_width",
-      "label": "t:settings.width",
-      "options": [
-        {
-          "value": "page-width",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
-      ],
-      "default": "full-width",
-      "visible_if": "{{ section.settings.display_mode == 'full_frame' }}"
-    },
-    {
-      "type": "select",
-      "id": "slide_height",
-      "options": [
-        {
-          "value": "auto",
-          "label": "t:options.auto"
-        },
-        {
-          "value": "small",
-          "label": "t:options.small"
-        },
-        {
-          "value": "medium",
-          "label": "t:options.medium"
-        },
-        {
-          "value": "large",
-          "label": "t:options.large"
-        }
-      ],
-      "default": "medium",
-      "label": "t:settings.media_height"
-    },
-    {
-      "type": "select",
-      "id": "content_position",
-      "label": "t:settings.content_position",
-      "options": [
-        {
-          "value": "on-media",
-          "label": "t:options.on_media"
-        },
-        {
-          "value": "below-media",
-          "label": "t:options.below_media"
-        }
-      ],
-      "default": "on-media"
-    },
-  {
-    "type": "color",
-    "id": "background_color",
-    "label": "t:settings.background_color",
-    "placeholder": "t:settings.default"
-  },
-  {
-    "type": "header",
-    "content": "t:content.navigation"
-  },
-  {
-      "type": "select",
-      "id": "icons_style",
-      "label": "t:settings.icons",
-      "options": [
-        {
-          "value": "arrow",
-          "label": "t:options.arrows"
-        },
-        {
-          "value": "chevron",
-          "label": "t:options.chevrons"
-        },
-        {
-          "value": "arrows_large",
-          "label": "t:options.large_arrows"
-        },
-        {
-          "value": "chevron_large",
-          "label": "t:options.large_chevrons"
-        },
-        {
-          "value": "none",
-          "label": "t:options.none"
-        }
-      ],
-      "default": "arrows_large"
-    },
-    {
-      "type": "select",
-      "id": "slideshow_controls_style",
-      "label": "t:settings.pagination",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:options.none"
-        },
-        {
-          "value": "dots",
-          "label": "t:options.dots"
-        },
-        {
-          "value": "counter",
-          "label": "t:options.counter"
-        }
-      ],
-      "default": "dots"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "t:settings.auto_rotate_slides",
-      "default": false,
-      "visible_if": "{{ section.settings.display_mode == 'full_frame' }}"
-    },
-    {
-      "type": "range",
-      "id": "autoplay_speed",
-      "label": "t:settings.speed",
-      "min": 3,
-      "max": 7,
-      "step": 1,
-      "unit": "s",
-      "default": 4,
-      "visible_if": "{{ section.settings.display_mode == 'full_frame' and section.settings.autoplay }}"
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "placeholder": "t:settings.default"
     },
     {
       "type": "header",
-      "content": "t:content.padding"
+      "content": "t:content.navigation"
     },
     {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "t:settings.top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "t:settings.bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    }
+        "type": "select",
+        "id": "icons_style",
+        "label": "t:settings.icons",
+        "options": [
+          {
+            "value": "arrow",
+            "label": "t:options.arrows"
+          },
+          {
+            "value": "chevron",
+            "label": "t:options.chevrons"
+          },
+          {
+            "value": "arrows_large",
+            "label": "t:options.large_arrows"
+          },
+          {
+            "value": "chevron_large",
+            "label": "t:options.large_chevrons"
+          },
+          {
+            "value": "none",
+            "label": "t:options.none"
+          }
+        ],
+        "default": "arrows_large"
+      },
+      {
+        "type": "select",
+        "id": "slideshow_controls_style",
+        "label": "t:settings.pagination",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:options.none"
+          },
+          {
+            "value": "dots",
+            "label": "t:options.dots"
+          },
+          {
+            "value": "counter",
+            "label": "t:options.counter"
+          }
+        ],
+        "default": "dots"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "t:settings.auto_rotate_slides",
+        "default": false,
+        "visible_if": "{{ section.settings.display_mode == 'full_frame' }}"
+      },
+      {
+        "type": "range",
+        "id": "autoplay_speed",
+        "label": "t:settings.speed",
+        "min": 3,
+        "max": 7,
+        "step": 1,
+        "unit": "s",
+        "default": 4,
+        "visible_if": "{{ section.settings.display_mode == 'full_frame' and section.settings.autoplay }}"
+      },
+      {
+        "type": "header",
+        "content": "t:content.padding"
+      },
+      {
+        "type": "range",
+        "id": "padding-block-start",
+        "label": "t:settings.top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding-block-end",
+        "label": "t:settings.bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      }
   ],
   "presets": [
     {
