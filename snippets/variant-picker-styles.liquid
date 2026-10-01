@@ -147,7 +147,7 @@
 
   .variant-option--buttons legend {
     padding: 0;
-    margin-block-end: var(--margin-xs);
+    margin-block-end: var(--margin-lg);
   }
 
   .variant-option--buttons legend,
@@ -203,13 +203,11 @@
     flex: 0 0 3.25em;
     align-items: center;
     position: relative;
-    padding-block: var(--padding-sm);
-    padding-inline: var(--padding-lg);
-    border: var(--options-border-width) solid var(--color-variant-border);
+    border-bottom: var(--options-border-width) solid var(--color-variant-border); 
     border-radius: var(--options-border-radius);
     overflow: clip;
     justify-content: center;
-    min-height: 3.25em;
+    min-height: 1.8em;
     min-width: fit-content;
     white-space: nowrap;
     background-color: var(--color-variant-background);
@@ -220,7 +218,6 @@
     &:hover:has([aria-disabled='true']):has([data-option-available='false']) {
       --variant-picker-stroke-color: var(--color-variant-hover-border);
 
-      background-color: var(--color-variant-hover-background);
       border-color: var(--color-variant-hover-border);
       color: var(--color-variant-hover-text);
     }
@@ -240,7 +237,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      border: var(--options-border-width) solid var(--color-selected-variant-border);
+      border: 0;
+      
       border-radius: inherit;
       pointer-events: none;
       z-index: 2;
@@ -256,7 +254,7 @@
       /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
       clip-path: inset(0 0 0 0);
       border-color: var(--color-variant-border);
-      inset: calc(var(--options-border-width) * -1);
+      inset: 0;
     }
 
     &:has(:checked):not(.variant-option__button-label--has-swatch, :has([data-option-available='false']))::before {
@@ -305,9 +303,7 @@
       width: max(var(--pill-width-current, 100%), var(--pill-width-previous, 100%));
     }
 
-    @media screen and (min-width: 750px) {
-      padding: var(--padding-xs) var(--variant-option-padding-inline);
-    }
+  
   }
 
   /* wrap around only for 3 or more variants in a row */
@@ -393,7 +389,6 @@
     color: var(--color-selected-variant-hover-text);
 
     .variant-option__button-label__pill {
-      background-color: var(--color-selected-variant-hover-background);
     }
   }
 
