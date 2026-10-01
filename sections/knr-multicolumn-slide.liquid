@@ -36,8 +36,22 @@
   {% for how_to_use in how_to_use_entries %}
     {% assign how_to_use_title = how_to_use.titre.value | default: how_to_use.titre %}
     {% assign how_to_use_image = how_to_use.image.value %}
+    {% assign how_to_use_image_ratio = how_to_use_image.aspect_ratio | default: 1 %}
+    {% case section.settings.image_ratio %}
+      {% when 'portrait' %}
+        {% assign how_to_use_image_ratio = '4 / 5' %}
+      {% when 'square' %}
+        {% assign how_to_use_image_ratio = '1' %}
+      {% when 'landscape' %}
+        {% assign how_to_use_image_ratio = '16 / 9' %}
+    {% endcase %}
     <div class="resource-list__item">
       <article class="knr-how-to-use__item">
+        {% if how_to_use_image != blank %}
+          <div class="knr-how-to-use__image-frame" style="--ratio: {{ how_to_use_image_ratio }}">
+            {{ how_to_use_image | image_url: width: 1200 | image_tag: alt: how_to_use_title, loading: 'lazy', class: 'knr-how-to-use__image' }}
+          </div>
+        {% endif %}
         {% if how_to_use.numero.value != blank %}
           <p class="knr-how-to-use__number">{{ how_to_use.numero.value | escape }}</p>
         {% endif %}
@@ -46,9 +60,6 @@
         {% endif %}
         {% if how_to_use.texte.value != blank %}
           <div class="knr-how-to-use__text">{{ how_to_use.texte | metafield_tag }}</div>
-        {% endif %}
-        {% if how_to_use_image != blank %}
-          {{ how_to_use_image | image_url: width: 1200 | image_tag: alt: how_to_use_title, loading: 'lazy', class: 'knr-how-to-use__image' }}
         {% endif %}
       </article>
     </div>
@@ -232,7 +243,7 @@
   .knr-how-to-use__item {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--resource-list-column-gap-desktop);
     width: 100%;
   }
 
@@ -244,7 +255,13 @@
   .knr-how-to-use__image {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .knr-how-to-use__image-frame {
+    aspect-ratio: var(--ratio);
+    overflow: hidden;
   }
 
   .section-wrapper {
@@ -302,6 +319,31 @@
       "id": "metafield_key",
       "label": "t:knr.metafield_key",
       "default": "custom.how_to_use"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:settings.aspect_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:options.auto"
+        },
+        {
+          "value": "portrait",
+          "label": "t:options.portrait"
+        },
+        {
+          "value": "square",
+          "label": "t:options.square"
+        },
+        {
+          "value": "landscape",
+          "label": "t:options.landscape"
+        }
+      ],
+      "default": "adapt",
+      "visible_if": "{{ section.settings.metafield_key != blank }}"
     },
     {
       "type": "select",
