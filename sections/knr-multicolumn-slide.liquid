@@ -21,6 +21,45 @@
     endif
 %}
 
+{% liquid
+  assign how_to_use_entries = blank
+  assign metafield_parts = section.settings.metafield_key | split: '.'
+  assign metafield_namespace = metafield_parts[0]
+  assign metafield_name = metafield_parts[1]
+
+  if product != blank and metafield_namespace != blank and metafield_name != blank
+    assign how_to_use_entries = product.metafields[metafield_namespace][metafield_name].value
+  endif
+%}
+
+{% capture metaobject_list_items %}
+  {% for how_to_use in how_to_use_entries %}
+    {% assign how_to_use_title = how_to_use.titre.value | default: how_to_use.titre %}
+    {% assign how_to_use_image = how_to_use.image.value %}
+    <div class="resource-list__item">
+      <article class="knr-how-to-use__item">
+        {% if how_to_use.numero.value != blank %}
+          <p class="knr-how-to-use__number">{{ how_to_use.numero.value | escape }}</p>
+        {% endif %}
+        {% if how_to_use_title != blank %}
+          <h3 class="knr-how-to-use__title">{{ how_to_use_title | escape }}</h3>
+        {% endif %}
+        {% if how_to_use.texte.value != blank %}
+          <div class="knr-how-to-use__text">{{ how_to_use.texte | metafield_tag }}</div>
+        {% endif %}
+        {% if how_to_use_image != blank %}
+          {{ how_to_use_image | image_url: width: 1200 | image_tag: alt: how_to_use_title, loading: 'lazy', class: 'knr-how-to-use__image' }}
+        {% endif %}
+      </article>
+    </div>
+    {% unless forloop.last %}<!--@list/split-->{% endunless %}
+  {% endfor %}
+{% endcapture %}
+
+{% liquid
+  assign metaobject_list_items_array = metaobject_list_items | strip | split: '<!--@list/split-->'
+%}
+
 {% render 'resource-list-styles' %}
 
 {% render 'contrast-override',
@@ -95,14 +134,16 @@
     >
   {% if section.settings.layout_type == 'carousel' %}
     {% capture list_items %}
-      {% for block in section.blocks %}
-        <div
-            class="resource-list__item"
-          {{ block.shopify_attributes }}>
-        {% render block %}
-        </div>
-          <!--@list/split-->
-      {% endfor %}
+      {% if how_to_use_entries != blank %}
+        {{ metaobject_list_items }}
+      {% else %}
+        {% for block in section.blocks %}
+          <div class="resource-list__item" {{ block.shopify_attributes }}>
+            {% render block %}
+          </div>
+          {% unless forloop.last %}<!--@list/split-->{% endunless %}
+        {% endfor %}
+      {% endif %}
     {% endcapture %}
 
     {% liquid
@@ -122,13 +163,26 @@
       }
     </style>
     {% else %}
-      {{ children }}
+      {% if how_to_use_entries != blank %}
+        {{ metaobject_list_items }}
+      {% else %}
+        {{ children }}
+      {% endif %}
   {% endif %}
     </div>
   </div>
     {% if section.settings.carousel_on_mobile %}
     {% capture list_items %}
-      {{ children }}
+      {% if how_to_use_entries != blank %}
+        {{ metaobject_list_items }}
+      {% else %}
+        {% for block in section.blocks %}
+          <div class="resource-list__item" {{ block.shopify_attributes }}>
+            {% render block %}
+          </div>
+          {% unless forloop.last %}<!--@list/split-->{% endunless %}
+        {% endfor %}
+      {% endif %}
     {% endcapture %}
 
     {% liquid
@@ -149,7 +203,7 @@
         --resource-list-column-gap-desktop: {{ mobile_carousel_gap }}px;
         --column-count: {{ section.settings.columns }};
         --column-count-mobile: 1;
-        --mobile-card-size: {{ section.settings.mobile_card_size  }};
+        --mobile-card-size: {{ section.settings.mobile_card_size | default: '60cqw' }};
         {% render 'spacing-style', settings: section.settings %}
       "
     >
@@ -175,6 +229,24 @@
 </div>
 
 {% stylesheet %}
+  .knr-how-to-use__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .knr-how-to-use__number,
+  .knr-how-to-use__title {
+    margin: 0;
+  }
+
+  .knr-how-to-use__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .section-wrapper {
     --section-height-offset: 0px;
   }
@@ -225,6 +297,12 @@
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "t:knr.metafield_key",
+      "default": "custom.how_to_use"
+    },
     {
       "type": "select",
       "id": "layout_type",
@@ -346,6 +424,23 @@
       "label": "t:settings.carousel_on_mobile",
       "default": false,
       "visible_if": "{{ section.settings.vertical_on_mobile == false }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_card_size",
+      "label": "t:settings.mobile_card_size",
+      "options": [
+        {
+          "value": "60cqw",
+          "label": "t:options.one_number"
+        },
+        {
+          "value": "44cqw",
+          "label": "t:options.two_number"
+        }
+      ],
+      "default": "60cqw",
+      "visible_if": "{{ section.settings.layout_type == 'carousel' or section.settings.carousel_on_mobile == true }}"
     },
     {
       "type": "select",
