@@ -1141,6 +1141,11 @@
     "blog_post": "Article de blog"
   },
   "knr": {
+    "badge": {
+      "name": "Badge",
+      "settings": {
+      }
+    },
     "breadcrumb-bar": {
       "name": "Fil d'Ariane",
       "settings": {
