@@ -45,7 +45,7 @@
   %}
 
   <div
-    class="rating-wrapper rating-wrapper-{{ block.id }} justify-{{ block_settings.alignment }} size-style"
+    class="rating-wrapper rating-wrapper-{{ block.id }}{% if block_settings.stars_style == 'single' %} rating-wrapper-single{% endif %} justify-{{ block_settings.alignment }} size-style"
     style="{% render 'size-style', settings: block_settings %}"
     {{ block.shopify_attributes }}
   >
@@ -72,44 +72,33 @@
       style="--star-size: calc(var(--font-{{ block_settings.type_preset }}--size) * 1.1);"
       aria-label="{{ 'accessibility.rating' | t: rating: rating }}"
     >
-      {% if block_settings.stars_style == 'single' %}
+      {%- for star in (1..star_count_rating) -%}
         <svg
-          class="stars {% if svg_filled_stars > 0 %}filled-star{% endif %}"
+          class="stars {% if star <= svg_filled_stars %}filled-star{% endif %}"
           viewBox="0 0 32 32"
-          style="--empty-star-fill-color: rgb(var(--star-fill-color-rgb) / var(--opacity-20))"
+          style="--empty-star-fill-color:{% if block_settings.stars_style == 'outline' %}transparent{% else %}rgb(var(--star-fill-color-rgb) / var(--opacity-20)){% endif %}"
           role="presentation"
         >
-          <use xlink:href="#star"></use>
+          <use xlink:href="#star"{% if decimal_rating == 0.5 and star == svg_filled_stars %} fill="url(#half)"{% endif %}></use>
+          {% if block_settings.stars_style == "outline" %}
+            <use xlink:href="#star" fill="none" stroke="var(--star-fill-color)" stroke-width="var(--icon-stroke-width)"></use>
+          {% endif %}
         </svg>
-      {% else %}
-        {%- for star in (1..star_count_rating) -%}
-          <svg
-            class="stars {% if star <= svg_filled_stars %}filled-star{% endif %}"
-            viewBox="0 0 32 32"
-            style="--empty-star-fill-color:{% if block_settings.stars_style == 'outline' %}transparent{% else %}rgb(var(--star-fill-color-rgb) / var(--opacity-20)){% endif %}"
-            role="presentation"
-          >
-            <use xlink:href="#star"{% if decimal_rating == 0.5 and star == svg_filled_stars %} fill="url(#half)"{% endif %}></use>
-            {% if block_settings.stars_style == "outline" %}
-              <use xlink:href="#star" fill="none" stroke="var(--star-fill-color)" stroke-width="var(--icon-stroke-width)"></use>
-            {% endif %}
-          </svg>
-        {%- endfor -%}
-      {% endif %}
+      {%- endfor -%}
     </div>
 
-    {%- if block_settings.show_number or block_settings.stars_style == 'single' -%}
-      <p class="rating-count {{ block_settings.type_preset }}">
-        {%- if block_settings.stars_style == 'single' -%}
-          <span aria-hidden="true">{{- rating | round: 1 }}</span>
-        {%- endif -%}
-        {%- if block_settings.stars_style == 'single' and block_settings.show_number -%}
-          <span class="rating-count-separator">|</span>
-        {%- endif -%}
-        {%- if block_settings.show_number -%}
+    {%- if block_settings.stars_style == 'single' -%}
+      <span class="rating-value {{ block_settings.type_preset }}">{{- rating | round: 1 }}</span>
+      {%- if block_settings.show_number -%}
+        <p class="rating-count {{ block_settings.type_preset }}">
           {{- rating_count }}
           {{ 'content.reviews' | t }}
-        {%- endif -%}
+        </p>
+      {%- endif -%}
+    {%- elsif block_settings.show_number -%}
+      <p class="rating-count {{ block_settings.type_preset }}">
+        {{- rating_count }}
+        {{ 'content.reviews' | t }}
       </p>
     {%- endif -%}
   </div>
@@ -129,6 +118,17 @@
   .rating {
     display: flex;
     align-items: center;
+  }
+
+  .rating-wrapper-single {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    column-gap: var(--gap-xs);
+    row-gap: var(--gap-3xs);
+  }
+
+  .rating-wrapper-single .rating-count {
+    grid-column: 1 / -1;
   }
 
   .rating-wrapper.justify-right {
