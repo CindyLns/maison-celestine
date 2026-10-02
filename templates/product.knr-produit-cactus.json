@@ -2136,7 +2136,7 @@
             "text_U7fYMN": {
               "type": "text",
               "settings": {
-                "text": "<p>Découvrez nos derniers produits, conçus spécialement pour la saison. Achetez vos favoris avant qu’ils ne disparaissent !</p>",
+                "text": "<p>Découvrez nos derniers produits, conçus spécialement pour la saison. Achetez vos favoris avant qu’ils ne disparaissent&nbsp;!</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -2304,8 +2304,9 @@
             "metafield_key": "custom.faq",
             "icon": "caret",
             "dividers": true,
+            "max_width": "normal",
             "divider_color": "{{ settings.color_palette.color6 }}",
-            "type_preset": "h5",
+            "type_preset": "h3",
             "background_color": "",
             "text_color": "",
             "border": "none",
@@ -2314,7 +2315,7 @@
             "border_color": "",
             "border_radius": 0,
             "heading": "Titre de l'accordéon",
-            "open_by_default": false,
+            "open_by_default": true,
             "icon_row": "none",
             "width": 20,
             "padding-block-start": 0,
