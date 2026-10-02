@@ -189,6 +189,22 @@
   .badge-block span {
     color: var(--badge-color-text) !important;
   }
+  @media screen and (max-width: 749px) {
+    .product-information__grid {
+      position: relative;
+    }
+
+    .product-information__grid .badges-container {
+      position: absolute;
+      top: -38%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      justify-content: center;
+      width: max-content;
+      max-width: calc(100% - 24px);
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
