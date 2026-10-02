@@ -30,13 +30,19 @@
   if product != blank and metafield_namespace != blank and metafield_name != blank
     assign how_to_use_entries = product.metafields[metafield_namespace][metafield_name].value
   endif
+
+  assign shared_how_to_use_image_ratio = 1
+  if section.settings.image_ratio == 'adapt' and how_to_use_entries != blank
+    assign first_how_to_use_image = how_to_use_entries.first.image.value
+    assign shared_how_to_use_image_ratio = first_how_to_use_image.aspect_ratio | default: 1
+  endif
 %}
 
 {% capture metaobject_list_items %}
   {% for how_to_use in how_to_use_entries %}
     {% assign how_to_use_title = how_to_use.titre.value | default: how_to_use.titre %}
     {% assign how_to_use_image = how_to_use.image.value %}
-    {% assign how_to_use_image_ratio = how_to_use_image.aspect_ratio | default: 1 %}
+    {% assign how_to_use_image_ratio = shared_how_to_use_image_ratio %}
     {% case section.settings.image_ratio %}
       {% when 'portrait' %}
         {% assign how_to_use_image_ratio = '4 / 5' %}
@@ -52,15 +58,17 @@
             {{ how_to_use_image | image_url: width: 1200 | image_tag: alt: how_to_use_title, loading: 'lazy', class: 'knr-how-to-use__image' }}
           </div>
         {% endif %}
-        {% if how_to_use.numero.value != blank %}
-          <p class="knr-how-to-use__number">{{ how_to_use.numero.value | escape }}</p>
-        {% endif %}
-        {% if how_to_use_title != blank %}
-          <h3 class="knr-how-to-use__title">{{ how_to_use_title | escape }}</h3>
-        {% endif %}
-        {% if how_to_use.texte.value != blank %}
-          <div class="knr-how-to-use__text">{{ how_to_use.texte | metafield_tag }}</div>
-        {% endif %}
+        <div class="meta_description">
+          {% if how_to_use.numero.value != blank %}
+            <p class="knr-how-to-use__number">{{ how_to_use.numero.value | escape }}</p>
+          {% endif %}
+          {% if how_to_use_title != blank %}
+            <h3 class="knr-how-to-use__title">{{ how_to_use_title | escape }}</h3>
+          {% endif %}
+          {% if how_to_use.texte.value != blank %}
+            <div class="knr-how-to-use__text">{{ how_to_use.texte | metafield_tag }}</div>
+          {% endif %}
+        </div>
       </article>
     </div>
     {% unless forloop.last %}<!--@list/split-->{% endunless %}
@@ -135,6 +143,7 @@
         resource-list
         force-full-width
         {{ resource_list_classes }}
+        {% if how_to_use_entries != blank %} knr-how-to-use-list{% endif %}
       "
       style="
         {% render 'layout-panel-style', settings: section.settings %}
@@ -246,13 +255,29 @@
     gap: var(--resource-list-column-gap-desktop);
     width: 100%;
   }
+  .knr-how-to-use__item .meta_description {
+    display: flex;
+    flex-direction: column;
+    gap: var(--resource-list-column-gap-desktop);
+    padding: 0 24px;
+    @media screen and (max-width: 749px) {
+      padding: 0 16px;
+    }
+  }
 
   .knr-how-to-use__number,
   .knr-how-to-use__title {
     margin: 0;
   }
 
+  .knr-how-to-use-list > .resource-list__item {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
   .knr-how-to-use__image {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
@@ -260,6 +285,8 @@
   }
 
   .knr-how-to-use__image-frame {
+    position: relative;
+    width: 100%;
     aspect-ratio: var(--ratio);
     overflow: hidden;
   }
