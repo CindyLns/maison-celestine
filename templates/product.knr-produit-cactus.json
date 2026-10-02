@@ -94,7 +94,7 @@
                 "hide_home": true,
                 "hide_current": true,
                 "hide_desktop": false,
-                "hide_mobile": false,
+                "hide_mobile": true,
                 "text_color": "#b5a282",
                 "background": false,
                 "background_color": "#00000026"
@@ -133,7 +133,7 @@
               "name": "t:names.header",
               "settings": {
                 "content_direction": "row",
-                "vertical_on_mobile": true,
+                "vertical_on_mobile": false,
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "flex-start",
                 "align_baseline": false,
