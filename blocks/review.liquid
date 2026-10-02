@@ -177,6 +177,19 @@
   .filled-star {
     fill: var(--star-fill-color);
   }
+
+  @media screen and (max-width: 749px) {
+    .rating-wrapper-single {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    .rating-wrapper-single.justify-right {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
