@@ -2256,6 +2256,7 @@
         "metafield_key": "custom.avis",
         "display_mode": "full_frame",
         "section_width": "full-width",
+        "mobile_section_width": "page-width",
         "full_frame_on_mobile": false,
         "slideshow_gap": 12,
         "arrows_gap": 12,
