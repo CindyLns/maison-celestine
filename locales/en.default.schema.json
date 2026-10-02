@@ -1267,6 +1267,11 @@
       "name": "Multicolumn: carousel",
       "settings": {
       }
+    },
+    "slideshow": {
+      "name": "Metafield Slideshow: full frame",
+      "settings": {
+      }
     }
   }
   

@@ -1171,6 +1171,11 @@
       "name": "Multicolonne: carrousel",
       "settings": {
       }
+    },
+    "slideshow": {
+      "name": "Diaporama Métafield: plein cadre",
+      "settings": {
+      }
     }
   }
 }
