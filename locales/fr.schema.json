@@ -1177,6 +1177,11 @@
       "settings": {
       }
     },
+    "pull_quote": {
+      "name": "Citation section",
+      "settings": {
+      }
+    },
     "slideshow": {
       "name": "Diaporama Métafield: plein cadre",
       "settings": {

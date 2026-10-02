@@ -1273,6 +1273,11 @@
       "settings": {
       }
     },
+    "pull_quote": {
+      "name": "Pull quote section",
+      "settings": {
+      }
+    },
     "slideshow": {
       "name": "Metafield Slideshow: full frame",
       "settings": {
