@@ -67,6 +67,7 @@
         </symbol>
       </defs>
     </svg>
+    {%- if block_settings.stars_style == 'single' -%}<div class="rating-line">{%- endif -%}
     <div
       class="rating"
       style="--star-size: calc(var(--font-{{ block_settings.type_preset }}--size) * 1.1);"
@@ -89,6 +90,10 @@
 
     {%- if block_settings.stars_style == 'single' -%}
       <span class="rating-value {{ block_settings.type_preset }}">{{- rating | round: 1 }}</span>
+      </div>
+    {%- endif -%}
+
+    {%- if block_settings.stars_style == 'single' -%}
       {%- if block_settings.show_number -%}
         <p class="rating-count {{ block_settings.type_preset }}">
           {{- rating_count }}
@@ -122,19 +127,30 @@
 
   .rating-wrapper-single {
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: minmax(0, 1fr);
     column-gap: var(--gap-xs);
     row-gap: var(--gap-3xs);
   }
 
   .rating-wrapper-single .rating-count {
     grid-column: 1 / -1;
+    justify-self: end;
+  }
+
+  .rating-line {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
   }
 
   .rating-wrapper.justify-right {
     flex-direction: row-reverse;
     /* row-reverse flips the main axis, so main-start is inline-end */
     justify-content: flex-start;
+  }
+
+  .rating-wrapper-single.justify-right .rating-line {
+    justify-content: flex-end;
   }
 
   .rating {
