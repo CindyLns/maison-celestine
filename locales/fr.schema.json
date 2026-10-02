@@ -1141,6 +1141,7 @@
     "blog_post": "Article de blog"
   },
   "knr": {
+    "accordion-metafield": "Accordéon Metafield",
     "metafield_key": "Connexes par Metafield",
     "badge": {
       "name": "Badge",
@@ -1156,6 +1157,11 @@
         "hide_mobile": "Cacher sur mobile"
       }
     },
+    "faq":{
+      "name": "FAQ Connexes par Metafield",
+      "settings": {
+      }
+    }, 
     "group": {
       "name": "knr-groupe",
       "settings": {

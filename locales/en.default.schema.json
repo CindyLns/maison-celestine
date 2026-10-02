@@ -1237,6 +1237,7 @@
     "disclosures": "Disclosures"
   },
   "knr": {
+    "accordion-metafield": "Accordion Metafield",
     "metafield_key": "Related by Metafield",
     "badge": {
       "name": "Badge",
@@ -1252,6 +1253,11 @@
         "hide_mobile": "Hide on mobile"
       }
     },
+    "faq":{
+      "name": "FAQ related by Metafield",
+      "settings": {
+      }
+    }, 
     "group": {
       "name": "knr-group",
       "settings": {
