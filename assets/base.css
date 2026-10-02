@@ -955,7 +955,7 @@ button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
   padding: 0 0 2px 0;
   background-color: inherit;
   color: var(--color-foreground);
-  border-bottom: 0.8px solid #000000;
+  border-bottom: 0.8px solid var(--color-foreground);
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
@@ -976,6 +976,14 @@ button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
 
   color: rgb(var(--hover-color-rgb) / var(--opacity-70));
 }
+
+:where(.button-underlined):hover {
+  --hover-color-rgb: var(--color-foreground-rgb);
+
+  color: rgb(var(--hover-color-rgb) / var(--opacity-70));
+  border-bottom: 0.8px solid rgb(var(--hover-color-rgb) / var(--opacity-50));
+}
+
 
 .button-unstyled--with-icon {
   color: var(--color-foreground);
