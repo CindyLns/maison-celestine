@@ -1263,6 +1263,11 @@
       "settings": {
       }
     },
+    "localization": {
+      "name": "Localization",
+      "settings": {
+      }
+    },
     "multicolumn-slide": {
       "name": "Multicolumn: carousel",
       "settings": {
