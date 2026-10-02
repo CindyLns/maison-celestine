@@ -1,0 +1,169 @@
+
+{% assign block_settings = block.settings %}
+<div
+  class="
+    footer-utilities__localisation
+  "
+  style="
+    {% if block_settings.text_color != blank %}--color-utilities: {{ block_settings.text_color }};{% endif %}
+  "
+  {{ block.shopify_attributes }}
+>
+  {% liquid
+    assign localization_font = '--menu-localization-font: var(--font-[localization_font]--family); ' | replace: '[localization_font]', block_settings.localization_font
+    assign localization_font_size = '--menu-localization-font-size: [localization_font_size]; ' | replace: '[localization_font_size]', block_settings.localization_font_size
+    assign form_style = localization_font | append: localization_font_size
+  %}
+  {% if block_settings.show_country or block_settings.show_language %}
+    <dropdown-localization-component class="dropdown-localization">
+      <button
+        type="button"
+        class="button dropdown-localization__button localization-selector"
+        aria-expanded="false"
+        aria-controls="footer-localization-results-{{ block.id }}"
+        ref="button"
+        on:click="/toggleSelector"
+        style="{{ localization_font }} {{ localization_font_size }} color: var(--color-utilities, inherit);"
+      >
+        {% if block_settings.show_country %}
+          {% if block_settings.country_selector_style %}
+            <span
+              class="icon-flag"
+              style="
+                background-image: url({{- localization.country | image_url: width: 32 }});
+                --size-shadow: 2px;
+                --color-shadow: rgb(var(--color-foreground-rgb) / var(--opacity-30-60));
+              "
+            ></span>
+          {% endif %}
+          <span>{{ localization.country.currency.iso_code }}</span>
+        {% endif %}
+        {% if block_settings.show_country and block_settings.show_language %}<span>/</span>{% endif %}
+        {% if block_settings.show_language %}
+          <span>{{ localization.language.iso_code | upcase }}</span>
+        {% endif %}
+        <span class="svg-wrapper icon-caret">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+        <span class="visually-hidden">{{ 'accessibility.localization_region_and_language' | t }}</span>
+      </button>
+      <div
+        class="localization-wrapper right-bound color-custom-popover"
+        id="footer-localization-results-{{ block.id }}"
+        hidden
+        ref="panel"
+      >
+        {% render 'localization-form',
+          show_country: block_settings.show_country,
+          show_language: block_settings.show_language,
+          localization_style: 'footer-dropdown',
+          form_style: form_style,
+          form_id: block.id
+        %}
+      </div>
+    </dropdown-localization-component>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:knr-localization.name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.localization"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country",
+      "label": "t:settings.country_region",
+      "info": "t:info.manage_countries_regions",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "country_selector_style",
+      "label": "t:settings.flag",
+      "default": true,
+      "visible_if": "{{ block.settings.show_country }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language",
+      "label": "t:settings.language_selector",
+      "info": "t:info.manage_languages",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "localization_font",
+      "label": "t:settings.font",
+      "options": [
+        {
+          "value": "heading",
+          "label": "t:options.heading"
+        },
+        {
+          "value": "subheading",
+          "label": "t:options.subheading"
+        },
+        {
+          "value": "body",
+          "label": "t:options.body"
+        },
+        {
+          "value": "accent",
+          "label": "t:options.accent"
+        }
+      ],
+      "default": "heading",
+      "visible_if": "{{ block.settings.show_country or block.settings.show_language }}"
+    },
+    {
+      "type": "select",
+      "id": "localization_font_size",
+      "label": "t:settings.size",
+      "options": [
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        }
+      ],
+      "default": "1rem"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:settings.text_color",
+      "placeholder": "t:settings.default"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:knr-localization.name",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}
