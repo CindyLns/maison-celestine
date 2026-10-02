@@ -1,7 +1,8 @@
 
 {% liquid
   assign review_block_settings = section.blocks.first.settings
-  assign metafield_parts = review_block_settings.metafield_key | split: '.'
+  assign review_metafield_key = section.settings.metafield_key | default: review_block_settings.metafield_key
+  assign metafield_parts = review_metafield_key | split: '.'
   assign metafield_namespace = metafield_parts[0]
   assign metafield_name = metafield_parts[1]
   assign review_entries = blank
@@ -49,41 +50,7 @@
 {% endif %}
 
 {% capture slides %}
-  {% if review_entries != blank %}
-    {% for review in review_entries %}
-      {% capture review_content %}
-        <div
-          class="spacing-style slide__content background-transparent"
-          style="{% render 'spacing-style', settings: review_block_settings %}"
-        >
-          <div
-            class="group-block-content layout-panel-flex layout-panel-flex--{{ review_block_settings.content_direction }}{% if review_block_settings.vertical_on_mobile %} mobile-column{% endif %}"
-            style="{% render 'layout-panel-style', settings: review_block_settings %}"
-          >
-          <div class="knr-review-slide-content">
-          {% if review.etoiles != blank %}
-            <div class="knr-review-slide-rating">{{ review.etoiles | metafield_tag }}</div>
-          {% endif %}
-          {% if review.nom_client.value != blank %}
-            <p class="knr-review-slide-client">{{ review.nom_client.value | escape }}</p>
-          {% endif %}
-          {% if review.avis != blank %}
-            <div class="knr-review-slide-text">{{ review.avis | metafield_tag }}</div>
-          {% endif %}
-          </div>
-          </div>
-        </div>
-      {% endcapture %}
-      {% render 'slideshow-slide',
-        index: forloop.index0,
-        children: review_content,
-        slide_size: section.settings.slide_height,
-        navigate_to_slide: true
-      %}
-    {% endfor %}
-  {% else %}
-    {% content_for 'blocks' %}
-  {% endif %}
+  {% content_for 'blocks' %}
 {% endcapture %}
 
 {% liquid
@@ -256,6 +223,12 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "t:knr.metafield_key",
+      "default": "custom.avis"
+    },
     {
       "type": "select",
       "id": "display_mode",

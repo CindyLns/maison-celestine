@@ -3,7 +3,37 @@
 {% assign block_settings = block.settings %}
 {%- assign block_index = section.blocks | find_index: 'id', block.id -%}
 {%- assign section_index = section.index -%}
+{% liquid
+  assign metafield_key = section.settings.metafield_key | default: block_settings.metafield_key
+  assign metafield_parts = metafield_key | split: '.'
+  assign metafield_namespace = metafield_parts[0]
+  assign metafield_name = metafield_parts[1]
+  assign template_type = template | split: '.' | first
+  assign review_entries = blank
 
+  if metafield_namespace != blank and metafield_name != blank
+    case template_type
+      when 'product'
+        assign review_entries = product.metafields[metafield_namespace][metafield_name].value
+      when 'collection'
+        assign review_entries = collection.metafields[metafield_namespace][metafield_name].value
+      when 'page'
+        assign review_entries = page.metafields[metafield_namespace][metafield_name].value
+      when 'article'
+        assign review_entries = article.metafields[metafield_namespace][metafield_name].value
+      when 'index'
+        assign review_entries = shop.metafields[metafield_namespace][metafield_name].value
+    endcase
+  endif
+
+  assign slide_items = review_entries
+  if review_entries == blank
+    assign slide_items = 'manual' | split: ','
+  endif
+%}
+
+{% if review_entries == blank or block_index == 0 %}
+{% for review in slide_items %}
 {% capture children %}
   {% liquid
     assign preview_image = block_settings.image_1
@@ -114,19 +144,41 @@
       {% if block_settings.vertical_on_mobile %}mobile-column{% endif %}"
       style="{% render 'layout-panel-style', settings: block_settings %}"
     >
+      {% if review_entries != blank %}
+        <div class="knr-review-slide-content">
+          {% if review.etoiles != blank %}
+            <div class="knr-review-slide-rating">{{ review.etoiles | metafield_tag }}</div>
+          {% endif %}
+          {% if review.nom_client.value != blank %}
+            <p class="knr-review-slide-client">{{ review.nom_client.value | escape }}</p>
+          {% endif %}
+          {% if review.avis != blank %}
+            <div class="knr-review-slide-text">{{ review.avis | metafield_tag }}</div>
+          {% endif %}
+        </div>
+      {% else %}
       {% content_for 'blocks' %}
+      {% endif %}
     </div>
   </div>
 {% endcapture %}
 
+{% liquid
+  assign slide_index = block_index
+  if review_entries != blank
+    assign slide_index = forloop.index0
+  endif
+%}
 {% render 'slideshow-slide',
-  index: block_index,
+  index: slide_index,
   class: class,
   children: children,
   attributes: block.shopify_attributes,
   slide_size: section.settings.slide_height,
   navigate_to_slide: true
 %}
+{% endfor %}
+{% endif %}
 
 {% stylesheet %}
   .slide__content {
