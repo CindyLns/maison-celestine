@@ -104,8 +104,8 @@
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
 ></div>
 <div
-  class="slideshow-section spacing-style section {{ section_width_class }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} disable-section-top-offset"
-  style="{% render 'spacing-padding', settings: section.settings %}; --slideshow-gap: {{ section.settings.slideshow_gap }}px;{% if rounded_slide_corners %} --corner-radius: {{ section.settings.corner_radius }}px;{% endif %}"
+  class="slideshow-section knr-section spacing-style section {{ section_width_class }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} disable-section-top-offset"
+  style="{% render 'spacing-padding', settings: section.settings %}; --slideshow-gap: {{ section.settings.slideshow_gap }}px; --slideshow-arrows-gap: {{ section.settings.arrows_gap }}px;{% if rounded_slide_corners %} --corner-radius: {{ section.settings.corner_radius }}px;{% endif %}"
 >
   <h2 class="visually-hidden">{{ 'accessibility.slideshow' | t }}</h2>
   {% render 'slideshow',
@@ -123,7 +123,17 @@
 </div>
 
 {% stylesheet %}
-  .slideshow-section {
+  .slideshow-section.knr-section {
+    slideshow-arrows .slideshow-control {
+      opacity: 1;
+    }
+
+    slideshow-arrows[position='center'] {
+      justify-content: center;
+      align-items: flex-end;
+      gap: var(--slideshow-arrows-gap, 12px);
+    }
+
     slideshow-arrows .slideshow-control:first-of-type {
       margin-inline-start: var(--padding-xs);
     }
@@ -156,7 +166,7 @@
       > slideshow-arrows
       .slideshow-control--next {
       animation: none;
-      opacity: 0;
+      opacity: 1;
       pointer-events: none;
     }
 
@@ -203,7 +213,7 @@
         > slideshow-arrows
         .slideshow-control--next {
         animation: none;
-        opacity: 0;
+          opacity: 1;
         pointer-events: none;
       }
     }
@@ -279,6 +289,16 @@
       "unit": "px",
       "default": 12,
       "visible_if": "{{ section.settings.display_mode == 'with_hints' }}"
+    },
+    {
+      "type": "range",
+      "id": "arrows_gap",
+      "label": "t:settings.gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
     },
     {
       "type": "range",

@@ -1,0 +1,111 @@
+{%- doc -%}
+  Renders metaobject review text using the text appearance settings of its slide block.
+
+  @param {object} block - The slide block
+  @param {string} content - Rich text content from the review metaobject
+{%- enddoc -%}
+
+{% render 'text-block-styles' %}
+
+{% liquid
+  assign block_settings = block.settings
+  assign plain_text = content | strip_newlines | strip
+  assign visible_text = plain_text | strip_html
+  assign text_width = block_settings.width | default: 'fit-content'
+  assign font_size_value = block_settings.font_size | split: 'rem' | first | times: 1.0
+
+  if block_settings.font_size contains 'heading-lg' or block_settings.font_size contains 'heading-xl' or font_size_value >= 3
+    assign type = 'display'
+  elsif block_settings.font_size contains 'heading' or font_size_value >= 1.25
+    assign type = 'heading'
+  else
+    assign type = 'body'
+  endif
+
+  if block_settings.type_preset == 'rte' or block_settings.type_preset == 'paragraph'
+    assign is_rte = true
+  endif
+
+  capture text_block_classes
+    if text_width == '100%'
+      echo 'text-block--align-' | append: block_settings.alignment
+      if block_settings.max_width == 'none'
+        echo ' text-block--full-width'
+      endif
+    endif
+    if block_settings.type_preset == 'custom'
+      echo ' custom-typography'
+      if block_settings.font_size != blank
+        echo ' custom-font-size'
+      endif
+      if block_settings.text_color != blank
+        echo ' custom-color'
+      endif
+    endif
+    if block_settings.background
+      echo ' text-block--background'
+    endif
+    if is_rte
+      echo ' rte'
+    endif
+  endcapture
+
+  assign element = 'div'
+  if is_rte
+    assign element = 'rte-formatter'
+  endif
+%}
+
+{% if visible_text != blank %}
+  <{{ element }}
+    class="knr-review-text text-block text-block--{{ block.id }} {{ block_settings.type_preset }} {{ text_block_classes }}"
+    style="
+      {% render 'typography-style', settings: block_settings %}
+      {% if block_settings.text_color != blank %}
+        --color: {{ block_settings.text_color }};
+        --color-rgb: {{ block_settings.text_color.rgb }};
+      {% endif %}
+      --width: {{ text_width }};
+      --max-width: var(--max-width--{{ type }}-{{ block_settings.max_width }});
+      {% if text_width == '100%' %}
+        --text-align: {{ block_settings.alignment | replace: 'left', 'start' | replace: 'right', 'end' }};
+      {% endif %}
+      {% if block_settings.background %}
+        --text-background-color: {{ block_settings.review_background_color | default: 'rgb(255 255 255 / 1.0)' }};
+        --text-corner-radius: {{ block_settings.corner_radius }}px;
+        --text-padding: max(var(--padding-2xs), calc((var(--text-corner-radius) + var(--padding-xs)) * (1 - cos(45deg))));
+      {% endif %}
+    "
+  >
+    {{ content }}
+  </{{ element }}>
+{% endif %}
+
+{% stylesheet %}
+  .knr-review-text {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: var(--horizontal-alignment);
+    color: var(--color, var(--color-foreground));
+  }
+
+  .knr-review-text > * {
+    width: var(--width, 100%);
+    max-inline-size: min(100%, var(--max-width, 100%));
+    text-align: var(--text-align, var(--text-align-default, start));
+    text-wrap: var(--text-wrap);
+  }
+
+  [style*='--horizontal-alignment: center'] .knr-review-text {
+    --text-align-default: center;
+  }
+
+  [style*='--horizontal-alignment: flex-end'] .knr-review-text {
+    --text-align-default: end;
+  }
+
+  [style*='--horizontal-alignment: flex-start'] .knr-review-text {
+    --text-align-default: start;
+  }
+{% endstylesheet %}
