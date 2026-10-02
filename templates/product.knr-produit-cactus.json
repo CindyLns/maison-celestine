@@ -2319,17 +2319,44 @@
     "17909526218313db3a": {
       "type": "_blocks",
       "blocks": {
+        "text_UyjQAw": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h2>Avis clients</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "judge_me_reviews_review_widget_9mFyVF": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
+            "review_data": "real_data",
+            "max_width": 750,
             "show_shop_reviews": false,
             "empty_state": "empty_widget"
           }
         }
       },
       "block_order": [
+        "text_UyjQAw",
         "judge_me_reviews_review_widget_9mFyVF"
       ],
       "settings": {
@@ -2340,7 +2367,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
+        "gap": 40,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -2357,8 +2384,8 @@
         "border_opacity": 100,
         "border_color": "",
         "border_radius": 0,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 20,
+        "padding-block-end": 70
       }
     },
     "featured_blog_posts_MCUJmw": {
