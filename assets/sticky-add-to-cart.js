@@ -1,8 +1,8 @@
+import { CartErrorEvent, CartLinesUpdateEvent, ProductSelectEvent, StandardEvents } from '@shopify/events';
 import { Component } from '@theme/component';
-import { ThemeEvents, QuantitySelectorUpdateEvent } from '@theme/events';
+import { QuantitySelectorUpdateEvent, ThemeEvents } from '@theme/events';
 import { morph } from '@theme/morph';
 import { onAnimationEnd } from '@theme/utilities';
-import { StandardEvents, ProductSelectEvent, CartLinesUpdateEvent, CartErrorEvent } from '@shopify/events';
 
 /**
  * @typedef {Object} ProductVariant
@@ -77,6 +77,7 @@ class StickyAddToCartComponent extends Component {
     const { signal } = this.#abortController;
     const target = this.closest('.shopify-section');
     target?.addEventListener(StandardEvents.productSelect, this.#handleProductSelect, { signal });
+    this.refs.stickyBar.addEventListener('change', this.#handleStickyVariantChange, { signal });
 
     document.addEventListener(StandardEvents.cartLinesUpdate, this.#handleCartAddComplete, { signal });
     document.addEventListener(StandardEvents.cartError, this.#handleCartAddComplete, { signal });
@@ -263,6 +264,40 @@ class StickyAddToCartComponent extends Component {
       .catch((error) => {
         if (error?.name !== 'AbortError') console.warn('[sticky-add-to-cart] Event promise rejected:', error);
       });
+  };
+
+  /**
+   * Forwards sticky-bar option changes to the product's primary variant picker.
+   * @param {Event} event - The change event from a sticky-bar option.
+   */
+  #handleStickyVariantChange = (event) => {
+    const stickyOption = event.target;
+    if (
+      !(stickyOption instanceof HTMLInputElement) ||
+      !stickyOption.checked ||
+      !stickyOption.hasAttribute('data-sticky-variant-option')
+    ) {
+      return;
+    }
+
+    const section = this.closest('.shopify-section');
+    const variantPicker = section?.querySelector(`variant-picker[data-product-id="${this.dataset.productId}"]`);
+    if (!variantPicker) return;
+
+    const selectedOption = Array.from(variantPicker.querySelectorAll('input[data-option-name], option[data-option-name]')).find(
+      (option) => option.dataset.optionName === stickyOption.dataset.optionName && option.value === stickyOption.value
+    );
+    if (!selectedOption) return;
+
+    if (selectedOption instanceof HTMLOptionElement) {
+      const select = selectedOption.closest('select');
+      if (!select) return;
+      select.value = selectedOption.value;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    } else if (selectedOption instanceof HTMLInputElement) {
+      selectedOption.checked = true;
+      selectedOption.dispatchEvent(new Event('change', { bubbles: true }));
+    }
   };
 
   /**
