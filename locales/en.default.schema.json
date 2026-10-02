@@ -1238,6 +1238,7 @@
   },
   "knr": {
     "accordion-metafield": "Accordion Metafield",
+    "divider": "Knr - divider",
     "metafield_key": "Related by Metafield",
     "badge": {
       "name": "Badge",
