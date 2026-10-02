@@ -45,7 +45,7 @@
   %}
 
   <div
-    class="rating-wrapper rating-wrapper-{{ block.id }}{% if block_settings.stars_style == 'single' %} rating-wrapper-single{% endif %} justify-{{ block_settings.alignment }} size-style"
+    class="rating-wrapper rating-wrapper-{{ block.id }}{% if block_settings.stars_style == 'single' %} rating-wrapper-single{% endif %}{% if block_settings.hide_desktop %} hidden--desktop{% endif %}{% if block_settings.hide_mobile %} hidden--mobile{% endif %} justify-{{ block_settings.alignment }} size-style"
     style="{% render 'size-style', settings: block_settings %}"
     {{ block.shopify_attributes }}
   >
@@ -191,6 +191,18 @@
     {
       "type": "paragraph",
       "content": "t:content.app_required_for_ratings"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desktop",
+      "label": "t:knr.breadcrumb-bar.settings.hide_desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "t:knr.breadcrumb-bar.settings.hide_mobile",
+      "default": false
     },
     {
       "type": "select",
