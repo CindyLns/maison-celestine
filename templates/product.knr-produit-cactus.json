@@ -202,7 +202,7 @@
                     "show_number": true,
                     "text_color": "{{ settings.color_palette.color5 }}",
                     "type_preset": "h6",
-                    "width": "100%",
+                    "width": "fit-content",
                     "alignment": "right"
                   },
                   "blocks": {}
