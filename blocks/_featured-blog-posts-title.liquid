@@ -36,6 +36,8 @@
 %}
 
 <div class="featured-blog-posts-title">
+  {% render 'text', fallback_text: blog_title_text, block: block, width: title_width %}
+
   {% if block.settings.button_label != blank %}
     <a
       class="{{ block.settings.style_class | default: 'button' }}"
@@ -49,13 +51,12 @@
       {{ block.settings.button_label }}
     </a>
   {% endif %}
-
-  {% render 'text', fallback_text: blog_title_text, block: block, width: title_width %}
 </div>
 
 {% stylesheet %}
   .featured-blog-posts-title {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
