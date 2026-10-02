@@ -2316,6 +2316,7 @@
             "border_radius": 0,
             "heading": "Titre de l'accordéon",
             "open_by_default": true,
+            "open_first_by_default": true,
             "icon_row": "none",
             "width": 20,
             "padding-block-start": 0,
