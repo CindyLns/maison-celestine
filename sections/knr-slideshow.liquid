@@ -62,6 +62,8 @@
     endif
   else
     assign section_width_class = 'section--' | append: section.settings.section_width
+    assign mobile_section_width = section.settings.mobile_section_width | default: section.settings.section_width
+    assign section_width_class = section_width_class | append: ' section--mobile-' | append: mobile_section_width
   endif
 
   assign slideshow_class = 'slideshow--content-' | append: section.settings.content_position
@@ -171,6 +173,10 @@
     }
 
     @media screen and (max-width: 749px) {
+      &.section--mobile-page-width > * {
+        grid-column: 2;
+      }
+
       .slideshow--with-hints--mobile-with-hints slideshow-slides {
         padding-inline: var(--page-margin);
       }
@@ -259,6 +265,23 @@
       "type": "select",
       "id": "section_width",
       "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "full-width",
+      "visible_if": "{{ section.settings.display_mode == 'full_frame' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_section_width",
+      "label": "Mobile width",
       "options": [
         {
           "value": "page-width",
