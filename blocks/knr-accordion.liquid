@@ -71,8 +71,14 @@
 >
   {%- for faq in faqs -%}
     <accordion-custom
-      {% if block_settings.open_by_default %}
-        open
+      {% if block_settings.open_first_by_default %}
+        {% if forloop.first %}
+          open-by-default-on-mobile
+          open-by-default-on-desktop
+        {% endif %}
+      {% elsif block_settings.open_by_default %}
+        open-by-default-on-mobile
+        open-by-default-on-desktop
       {% endif %}
       >
       <details
@@ -295,6 +301,12 @@
       "type": "checkbox",
       "id": "open_by_default",
       "label": "t:settings.open_row_by_default",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_by_default",
+      "label": "Ouvrir uniquement la première rangée par défaut",
       "default": false
     },
     {
