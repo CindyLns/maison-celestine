@@ -1,0 +1,31 @@
+{%- doc -%}
+  Renders the optional location icon.
+
+  @param {boolean} show_location_icon - Whether to display the icon.
+  @param {object} location_icon_page - Optional page for the icon link.
+{%- enddoc -%}
+
+{% if show_location_icon %}
+  {% if location_icon_page != blank %}
+    <a
+      href="{{ location_icon_page.url }}"
+      class="button-unstyled header-actions__action"
+      aria-label="{{ location_icon_page.title | escape }}"
+    >
+  {% endif %}
+  <span class="svg-wrapper search-action__location-icon{% if location_icon_page == blank %} header-actions__action{% endif %}"{% if location_icon_page == blank %} aria-hidden="true"{% endif %}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      {% render 'icon', icon: 'map_pin' %}
+    </svg>
+  </span>
+  {% if location_icon_page != blank %}
+    </a>
+  {% endif %}
+{% endif %}
+
+{% stylesheet %}
+  .search-action__location-icon {
+    display: flex;
+    align-items: center;
+  }
+{% endstylesheet %}

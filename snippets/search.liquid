@@ -4,7 +4,6 @@
   @param {string} [style] - The style of the search action.
   @param {string} [class] - Additional classes for the search action.
   @param {string} [display_style] - The display style ('icon' or 'text').
-
   @example
   {% render 'search', style: 'default', class: 'custom-class', display_style: 'icon' %}
 {%- enddoc -%}
@@ -13,6 +12,7 @@
   <search-button
     class="search-action{% if display_style == 'text' %} search-action--text{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
   >
+    {% render 'location-icon', show_location_icon: show_location_icon, location_icon_page: location_icon_page %}
     <button
       on:click="#search-modal/showDialog"
       class="button-unstyled header-actions__action{% if display_style == 'text' %} header-actions__text-style{% endif %}"
@@ -36,6 +36,8 @@
     --search-border-width: var(--style-border-width-inputs);
 
     display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
   }
 
   @media screen and (max-width: 749px) {
