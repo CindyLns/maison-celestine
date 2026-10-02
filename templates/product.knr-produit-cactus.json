@@ -2213,7 +2213,7 @@
         "corner_radius": 0,
         "slide_height": "small",
         "content_position": "on-media",
-        "background_color": "",
+        "background_color": "{{ settings.color_palette.color3 }}",
         "icons_style": "chevron",
         "icons_shape": "none",
         "slideshow_controls_style": "none",
