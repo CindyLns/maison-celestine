@@ -194,10 +194,37 @@
                   },
                   "blocks": {}
                 },
+                "price_TKDdXL": {
+                  "type": "price",
+                  "name": "t:names.product_price",
+                  "settings": {
+                    "hide_desktop": true,
+                    "hide_mobile": false,
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "",
+                    "width": "fit-content",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "text_color": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
                 "review_zHRMrA": {
                   "type": "review",
                   "name": "t:names.product_review_stars",
                   "settings": {
+                    "hide_desktop": false,
+                    "hide_mobile": true,
                     "stars_style": "single",
                     "show_number": true,
                     "text_color": "{{ settings.color_palette.color5 }}",
@@ -210,8 +237,24 @@
               },
               "block_order": [
                 "text_xrnftG",
+                "price_TKDdXL",
                 "review_zHRMrA"
               ]
+            },
+            "review_Vd4g4U": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "hide_desktop": true,
+                "hide_mobile": false,
+                "stars_style": "single",
+                "show_number": true,
+                "text_color": "{{ settings.color_palette.color5 }}",
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
             },
             "group_FqxbrY": {
               "type": "group",
@@ -337,6 +380,8 @@
               "type": "price",
               "name": "t:names.product_price",
               "settings": {
+                "hide_desktop": false,
+                "hide_mobile": true,
                 "show_sale_price_first": true,
                 "show_installments": false,
                 "show_tax_info": false,
@@ -1101,6 +1146,8 @@
                           "type": "price",
                           "name": "t:names.product_price",
                           "settings": {
+                            "hide_desktop": false,
+                            "hide_mobile": false,
                             "show_sale_price_first": true,
                             "show_installments": false,
                             "show_tax_info": false,
@@ -1142,6 +1189,7 @@
             "knr_breadcrumb_bar_DMMzPq",
             "knr_badge_VXeXHz",
             "group_icgrde",
+            "review_Vd4g4U",
             "group_FqxbrY",
             "variant_picker_R3rGDr",
             "price_fjF3mb",
