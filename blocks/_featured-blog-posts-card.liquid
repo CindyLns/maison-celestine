@@ -98,6 +98,9 @@
     {% endif %}
 
     <div class="featured-blog-posts-card__content layout-panel-flex--column">
+      {% if article.metafields.custom.surtitre.value != blank %}
+        <p class="featured-blog-posts-card__surtitre">{{ article.metafields.custom.surtitre.value }}</p>
+      {% endif %}
       <h4>{{ title }}</h4>
       {{ details }}
       {{ description }}
@@ -185,6 +188,20 @@
 
   .featured-blog-posts-card__content h4 {
     margin: 0;
+  }
+
+  .featured-blog-posts-card__surtitre {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .featured-blog-posts-card__surtitre::after {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 0.8px;
+    margin-top: 8px;
+    background-color: #B5A282;
   }
 {% endstylesheet %}
 
