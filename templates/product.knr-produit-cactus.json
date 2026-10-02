@@ -2268,18 +2268,18 @@
         "padding-block-end": 0
       }
     },
-    "section_kj6Jya": {
-      "type": "section",
+    "knr_faq_yRUgBN": {
+      "type": "knr-faq",
       "blocks": {
-        "text_w9DgCd": {
+        "text_fnBPG9": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Foire aux questions</h2>",
-            "width": "fit-content",
+            "text": "<h2>Questions fréquentes</h2>",
+            "width": "100%",
             "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "h3",
+            "alignment": "center",
+            "type_preset": "h1",
             "font": "var(--font-body--family)",
             "font_size": "",
             "line_height": "normal",
@@ -2297,13 +2297,14 @@
           },
           "blocks": {}
         },
-        "accordion_K4x6AG": {
-          "type": "accordion",
-          "name": "t:names.accordion",
+        "knr_accordion_JJhzTp": {
+          "type": "knr-accordion",
+          "name": "t:knr.accordion-metafield",
           "settings": {
+            "metafield_key": "custom.faq",
             "icon": "caret",
             "dividers": true,
-            "divider_color": "",
+            "divider_color": "{{ settings.color_palette.color6 }}",
             "type_preset": "h5",
             "background_color": "",
             "text_color": "",
@@ -2312,237 +2313,32 @@
             "border_opacity": 100,
             "border_color": "",
             "border_radius": 0,
+            "heading": "Titre de l'accordéon",
+            "open_by_default": false,
+            "icon_row": "none",
+            "width": 20,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {
-            "accordion_row_WUzcwN": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Quelle est la politique de retour ?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_wxWxng": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Notre objectif est que chaque client soit entièrement satisfait de son achat. Si ce n’est pas le cas, faites-le-nous savoir et nous ferons de notre mieux pour trouver une solution avec vous.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_wxWxng"
-              ]
-            },
-            "accordion_row_tNAbnY": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Certains achats sont-ils des ventes fermes ?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_VP9Gkf": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Nous ne pouvons pas accepter les retours sur certains articles. Ceux-ci seront clairement indiqués avant l’achat.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_VP9Gkf"
-              ]
-            },
-            "accordion_row_BgKPFt": {
-              "type": "_accordion-row",
-              "name": "t:names.accordion_row",
-              "settings": {
-                "heading": "Quand recevrai-je ma commande ?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_cVCqXW": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Nous nous efforcerons d’expédier votre commande le plus rapidement possible. Une fois votre commande expédiée, vous recevrez un e-mail contenant des informations supplémentaires. Les délais de livraison varient en fonction de votre emplacement.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_cVCqXW"
-              ]
-            },
-            "accordion_row_MAME3d": {
-              "type": "_accordion-row",
-              "name": "t:names.accordion_row",
-              "settings": {
-                "heading": "Où sont fabriqués vos produits ?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_xa8A3y": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Nos produits sont fabriqués localement et dans le monde entier. Nous sélectionnons soigneusement nos partenaires de fabrication pour garantir que nos produits sont de haute qualité et d’un juste rapport qualité-prix.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_xa8A3y"
-              ]
-            },
-            "accordion_row_CU7jKQ": {
-              "type": "_accordion-row",
-              "name": "t:names.accordion_row",
-              "settings": {
-                "heading": "Quels sont les frais d'expédition ?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_4bQECj": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>L’expédition est calculée en fonction de votre emplacement et des articles de votre commande. Vous connaîtrez toujours le prix de l’expédition avant d’effectuer votre achat.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_4bQECj"
-              ]
-            }
-          },
-          "block_order": [
-            "accordion_row_WUzcwN",
-            "accordion_row_tNAbnY",
-            "accordion_row_BgKPFt",
-            "accordion_row_MAME3d",
-            "accordion_row_CU7jKQ"
-          ]
+          "blocks": {}
         }
       },
       "block_order": [
-        "text_w9DgCd",
-        "accordion_K4x6AG"
+        "text_fnBPG9",
+        "knr_accordion_JJhzTp"
       ],
-      "name": "t:names.faq_section",
+      "name": "t:knr.faq.name",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 80,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -2557,10 +2353,10 @@
         "border": "none",
         "border_width": 1,
         "border_opacity": 100,
-        "border_color": "",
+        "border_color": "{{ settings.color_palette.color6 }}",
         "border_radius": 0,
         "padding-block-start": 100,
-        "padding-block-end": 50
+        "padding-block-end": 100
       }
     },
     "featured_blog_posts_MCUJmw": {
@@ -2913,7 +2709,7 @@
     "knr_multicolumn_slide_FAxkr7",
     "section_Wanmeq",
     "slideshow_bHPaay",
-    "section_kj6Jya",
+    "knr_faq_yRUgBN",
     "featured_blog_posts_MCUJmw",
     "section_4x6X3X"
   ]
