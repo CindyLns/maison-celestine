@@ -813,6 +813,19 @@
     "footer_utilities_jLGE8U": {
       "type": "footer-utilities",
       "blocks": {
+        "knr_footer_localisation_txddtp": {
+          "type": "knr-footer-localisation",
+          "name": "t:knr-localization.name",
+          "settings": {
+            "show_country": true,
+            "country_selector_style": false,
+            "show_language": true,
+            "localization_font": "heading",
+            "localization_font_size": "0.75rem",
+            "text_color": ""
+          },
+          "blocks": {}
+        },
         "footer_copyright_jweRK8": {
           "type": "footer-copyright",
           "settings": {
@@ -845,6 +858,7 @@
         }
       },
       "block_order": [
+        "knr_footer_localisation_txddtp",
         "footer_copyright_jweRK8",
         "social_links_Ew63Kq"
       ],
