@@ -87,11 +87,14 @@
 %}
 
 <div
-  class="section-background{% if settings.background_color != blank %} color-custom-{{ section_id }}{% endif %}"
+  class="section-background{% if settings.background_color != blank %} color-custom-{{ section_id }}{% endif %}{% if settings.mobile_background_color != blank %} section-background--mobile-background{% endif %}"
+  {% if settings.mobile_background_color != blank %}
+    style="--product-information-mobile-background: {{ settings.mobile_background_color }};"
+  {% endif %}
 ></div>
 <div
-  class="product-information section section--{{ content_width }} spacing-style{% if settings.background_color != blank %} color-custom-{{ section_id }}{% endif %} relative"
-  style="{% render 'spacing-style', settings: settings %} --gap: {{ settings.gap }}px;"
+  class="product-information section section--{{ content_width }} spacing-style{% if settings.background_color != blank %} color-custom-{{ section_id }}{% endif %}{% if settings.mobile_background_color != blank %} product-information--mobile-background{% endif %} relative"
+  style="{% render 'spacing-style', settings: settings %} --gap: {{ settings.gap }}px;{% if settings.mobile_background_color != blank %} --product-information-mobile-background: {{ settings.mobile_background_color }};{% endif %}"
   data-testid="product-information"
 >
   {% if settings.desktop_media_position == 'left' and product_has_media and request.page_type == 'product' %}
@@ -130,6 +133,13 @@
 {% stylesheet %}
   .product-information {
     gap: var(--gap) 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-information--mobile-background,
+    .section-background--mobile-background {
+      background-color: var(--product-information-mobile-background);
+    }
   }
 
   /* Base grid layout */
