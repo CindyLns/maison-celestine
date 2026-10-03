@@ -518,4 +518,16 @@
   .variant-option__button-label--has-swatch:has([data-option-available='false']):has(:checked):hover {
     background-color: inherit;
   }
+
+  @media screen and (max-width: 749px) {
+  .variant-picker .variant-option--buttons:not(.variant-option--swatches) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .variant-picker .variant-option--buttons:not(.variant-option--swatches) .variant-option__button-label {
+    min-width: 0;
+    width: 100%;
+  }
+}
 {% endstylesheet %}
