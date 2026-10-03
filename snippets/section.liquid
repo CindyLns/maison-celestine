@@ -37,6 +37,18 @@
       --section-min-height: var(--section-height-{{ section.settings.section_height }});
     {% endif %}
 
+    {% if section.settings.section_height_mobile != blank and section.settings.section_height_mobile != 'inherit' %}
+      {% if section.settings.section_height_mobile == 'custom' %}
+        --section-min-height-mobile: {{ section.settings.section_height_custom_mobile }}svh;
+      {% elsif section.settings.section_height_mobile == 'full-screen' %}
+        --section-min-height-mobile: 100svh;
+      {% elsif section.settings.section_height_mobile != '' %}
+        --section-min-height-mobile: var(--section-height-{{ section.settings.section_height_mobile }});
+      {% else %}
+        --section-min-height-mobile: auto;
+      {% endif %}
+    {% endif %}
+
     {% if section.settings.section_height != '' %}
      --section-preview-height: 600px;
      {% endif %}
