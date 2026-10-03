@@ -1239,6 +1239,8 @@
   },
   "knr": {
     "accordion-metafield": "Accordion Metafield",
+    "advanced_settings": "Advanced settings",
+    "additional_class": "Additional CSS classes",
     "divider": "Knr - divider",
     "metafield_key": "Related by Metafield",
     "badge": {

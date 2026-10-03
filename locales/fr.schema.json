@@ -1143,6 +1143,8 @@
   },
   "knr": {
     "accordion-metafield": "Accordéon Metafield",
+    "advanced_settings": "Réglages avancés",
+    "additional_class": "Classes CSS supplémentaires",
     "divider": "Knr - séparateur",
     "metafield_key": "Connexes par Metafield",
     "badge": {
