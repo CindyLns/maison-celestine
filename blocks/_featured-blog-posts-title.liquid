@@ -30,9 +30,6 @@
 
 {% liquid
   assign title_width = block.settings.width
-  if block.settings.button_label != blank
-    assign title_width = 'fit-content'
-  endif
 %}
 
 <div class="featured-blog-posts-title">
@@ -40,7 +37,7 @@
 
   {% if block.settings.button_label != blank %}
     <a
-      class="{{ block.settings.style_class | default: 'button' }}"
+      class="{{ block.settings.style_class | default: 'button' }}{% if block.settings.style_class == 'button-custom' %} button-custom--{{ block.id }}{% elsif block.settings.style_class == 'button-unstyled' %} button-unstyled--{{ block.id }}{% endif %} featured-blog-posts-title__button--desktop"
       {% if block.settings.button_link != blank %}
         href="{{ block.settings.button_link }}"
       {% else %}
@@ -61,6 +58,12 @@
     flex-wrap: wrap;
     gap: 1rem;
   }
+
+    @media screen and (max-width: 749px) {
+      .featured-blog-posts-title__button--desktop {
+        display: none;
+      }
+    }
 {% endstylesheet %}
 
 {% schema %}
