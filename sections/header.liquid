@@ -238,7 +238,7 @@
     assign form_style = localization_font | append: localization_font_size | append: color_shadow
   %}
   {% if show_language and show_country == false %}
-    <div class="dropdown-localization mobile:hidden">
+    <div class="dropdown-localization">
       {% render 'localization-form',
         show_country: show_country,
         show_language: show_language,
@@ -249,7 +249,7 @@
     </div>
   {% elsif show_country %}
     <dropdown-localization-component
-      class="dropdown-localization mobile:hidden"
+      class="dropdown-localization"
     >
       <button
         type="button"
@@ -882,10 +882,9 @@
     }
 
     @media screen and (max-width: 749px) {
-      --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
-        var(--header-mobile-bookend) var(--header-mobile-bookend);
+      --header-template-columns: minmax(0, 1fr) repeat(4, auto);
 
-      grid-template-areas: 'leftA leftB center rightA rightB';
+      grid-template-areas: 'logo search localization cart menu';
       grid-column: span 3;
       column-gap: 0;
       align-items: center;
@@ -895,41 +894,28 @@
          --page-margin already includes the larger safe-area inset at this breakpoint. */
       padding-inline: var(--page-margin);
 
-      .header-logo {
-        grid-area: center;
+      .header-logo { grid-area: logo; }
+      header-actions { display: contents; }
+      .account-button { display: none; }
+      header-actions > .action__cart,
+      header-actions > [data-testid='cart-drawer-trigger'] { grid-area: cart; }
+      .search-action { grid-area: search; }
+      .dropdown-localization { grid-area: localization; }
+      .header__drawer {
+        grid-area: menu;
+        margin-inline-start: var(--gap-sm);
       }
 
-      &:not(:has(header-actions)) .search-action {
-        grid-area: leftB;
-      }
-
-      &:not(:has(shopify-account)) .search-action {
-        grid-area: rightA;
-      }
-
-      .search-action {
-        grid-area: leftB;
-      }
-
-      .header__icon--menu {
-        justify-content: flex-start;
-        padding-inline: 0;
-      }
-
-      header-actions {
-        grid-area: rightB;
-        justify-content: flex-end;
-      }
+      .header__icon--menu { padding-inline: 0; }
     }
   }
 
   /* not ideal but we need to duplicate these styles for when touch comes into play
     We could avoid the duplication using js to set the data-menu-style attribute on small screens instead of using @media queries */
   #header-component[data-menu-style='drawer'] .header__columns {
-    --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
-      var(--header-mobile-bookend) var(--header-mobile-bookend);
+    --header-template-columns: minmax(0, 1fr) repeat(4, auto);
 
-    grid-template-areas: 'leftA leftB center rightA rightB';
+    grid-template-areas: 'logo search localization cart menu';
     grid-column: span 3;
     column-gap: 0;
     align-items: center;
@@ -939,32 +925,23 @@
        --page-margin already includes the larger safe-area inset at this breakpoint. */
     padding-inline: var(--page-margin);
 
-    .header-logo {
-      grid-area: center;
+    .header-logo { grid-area: logo; }
+    header-actions { display: contents; }
+    .account-button { display: none; }
+    header-actions > .action__cart,
+    header-actions > [data-testid='cart-drawer-trigger'] { grid-area: cart; }
+    .search-action { grid-area: search; }
+    .dropdown-localization { grid-area: localization; }
+    .header__drawer {
+      grid-area: menu;
+      margin-inline-start: var(--gap-sm);
     }
 
-    &:not(:has(header-actions)) .search-action {
-      grid-area: leftB;
-    }
+    .header__icon--menu { padding-inline: 0; }
+  }
 
-    &:not(:has(shopify-account)) .search-action {
-      grid-area: rightA;
-    }
-
-    .search-action {
-      grid-area: leftB;
-    }
-
-    /* Pin glyphs to the content edge of the 44px bookend; keep the full tap target */
-    .header__icon--menu {
-      justify-content: flex-start;
-      padding-inline: 0;
-    }
-
-    header-actions {
-      grid-area: rightB;
-      justify-content: flex-end;
-    }
+  #header-component[data-menu-style='drawer'] .dropdown-localization {
+    display: flex;
   }
 
   /* Single column layout if there are no columns within */
