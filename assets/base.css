@@ -666,14 +666,7 @@ h2,
   color: var(--color);
 }
 
-@media screen and (max-width: 749px) {
-  h2,
-  .h2.h2,
-  .text-block.h2 > *,
-  .text-block.h2 :is(h1, h2, h3, h4, h5, h6) {
-    font-size: 1.75em;
-  }
-}
+
 
 @media screen and (max-width: 1200px) {
   input.h2.h2,
